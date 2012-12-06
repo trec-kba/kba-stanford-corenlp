@@ -3,11 +3,11 @@ kba-stanford-corenlp
 
 Wrappers for generating one-word-per-line output representing all the goodies from Stanford CoreNLP, so we can include it in the KBA stream corpus.
 
-====Dependency
+====Dependency====
 
 This wrapper supports a varity version of CoreNLP. We use the version version 1.3.4 for testing.
 
-====NER and Parsing
+====NER and Parsing====
 
 The file src/nlp/runNER.java takes as input a corpus in format
 
