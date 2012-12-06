@@ -1,0 +1,12 @@
+<FILENAME testdocument>
+KBA 2012 was very exciting: 11 teams submitted 43 runs to solve the CCR task.
+
+This KBA is good!
+
+KBA 2013 is gearing up with more tasks and an even richer stream corpus.
+
+Join the TREC KBA discussion forum for updates.
+
+KBA seeks to help humans expand knowledge bases like Wikipedia by automatically recommending edits based on incoming content streams. This open evaluation measures an automatic system's ability to filter a large stream of text for new knowledge about entities.
+
+</FILENAME>
