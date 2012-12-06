@@ -1,0 +1,100 @@
+<SENT id="testdocument_SENT_1">
+1	KBA	NNP	O	KBA	nsubj	5	5
+2	2012	CD	DATE	2012	num	1	5
+3	was	VBD	O	be	cop	5	-1
+4	very	RB	O	very	advmod	5	-1
+5	exciting	JJ	O	exciting	_	0	-1
+6	:	:	O	:	_	0	-1
+7	11	CD	NUMBER	11	num	8	6
+8	teams	NNS	O	team	dep	5	6
+9	submitted	VBN	O	submit	partmod	8	6
+10	43	CD	NUMBER	43	num	11	8
+11	runs	NNS	O	run	dobj	9	8
+12	to	TO	O	to	aux	13	6
+13	solve	VB	O	solve	xcomp	9	6
+14	the	DT	O	the	det	16	9
+15	CCR	NNP	ORGANIZATION	CCR	nn	16	9
+16	task	NN	O	task	dobj	13	9
+17	.	.	O	.	_	0	-1
+</SENT>
+<SENT id="testdocument_SENT_2">
+1	This	DT	O	this	det	2	5
+2	KBA	NNP	O	KBA	nsubj	4	5
+3	is	VBZ	O	be	cop	4	-1
+4	good	JJ	O	good	_	0	-1
+5	!	.	O	!	_	0	-1
+</SENT>
+<SENT id="testdocument_SENT_3">
+1	KBA	NNP	O	KBA	nsubj	4	12
+2	2013	CD	DATE	2013	num	1	12
+3	is	VBZ	O	be	aux	4	-1
+4	gearing	VBG	O	gear	_	0	-1
+5	up	RP	O	up	prt	4	-1
+6	with	IN	O	with	_	0	-1
+7	more	JJR	O	more	amod	8	14
+8	tasks	NNS	O	task	prep_with	4	14
+9	and	CC	O	and	_	0	13
+10	an	DT	O	a	det	14	15
+11	even	RB	O	even	advmod	12	15
+12	richer	JJR	O	richer	amod	14	15
+13	stream	NN	O	stream	nn	14	15
+14	corpus	NN	O	corpus	prep_with	4	15
+15	.	.	O	.	_	0	-1
+</SENT>
+<SENT id="testdocument_SENT_4">
+1	Join	VB	O	join	_	0	-1
+2	the	DT	O	the	det	6	16
+3	TREC	NNP	O	TREC	nn	6	16
+4	KBA	NNP	O	KBA	nn	6	16
+5	discussion	NN	O	discussion	nn	6	16
+6	forum	NN	O	forum	dobj	1	16
+7	for	IN	O	for	_	0	16
+8	updates	NNS	O	update	prep_for	6	18
+9	.	.	O	.	_	0	-1
+</SENT>
+<SENT id="testdocument_SENT_5">
+1	KBA	NNP	O	KBA	nsubj	2	12
+2	seeks	VBZ	O	seek	_	0	-1
+3	to	TO	O	to	aux	4	-1
+4	help	VB	O	help	xcomp	2	-1
+5	humans	NNS	O	human	nsubj	6	21
+6	expand	VB	O	expand	ccomp	4	-1
+7	knowledge	NN	O	knowledge	nn	8	22
+8	bases	NNS	O	basis	dobj	6	22
+9	like	IN	O	like	_	0	22
+10	Wikipedia	NNP	O	Wikipedia	prep_like	8	24
+11	by	IN	O	by	_	0	-1
+12	automatically	RB	O	automatically	advmod	13	-1
+13	recommending	VBG	O	recommend	prepc_by	6	-1
+14	edits	NNS	O	edit	dobj	13	25
+15	based	VBN	O	base	_	0	-1
+16	on	IN	O	on	prepc_based_on	13	-1
+17	incoming	JJ	MISC	incoming	amod	19	26
+18	content	JJ	O	content	amod	19	26
+19	streams	NNS	O	stream	pobj	13	26
+20	.	.	O	.	_	0	-1
+</SENT>
+<SENT id="testdocument_SENT_6">
+1	This	DT	O	this	det	3	27
+2	open	JJ	O	open	amod	3	27
+3	evaluation	NN	O	evaluation	nsubj	4	27
+4	measures	VBZ	O	measure	_	0	-1
+5	an	DT	O	a	det	7	28
+6	automatic	JJ	O	automatic	amod	7	28
+7	system	NN	O	system	poss	9	28
+8	's	POS	O	's	_	0	28
+9	ability	NN	O	ability	dobj	4	28
+10	to	TO	O	to	_	0	-1
+11	filter	NN	O	filter	prep_to	4	-1
+12	a	DT	O	a	det	14	31
+13	large	JJ	O	large	amod	14	31
+14	stream	NN	O	stream	tmod	4	31
+15	of	IN	O	of	_	0	31
+16	text	NN	O	text	prep_of	14	31
+17	for	IN	O	for	_	0	-1
+18	new	JJ	O	new	amod	19	-1
+19	knowledge	NN	O	knowledge	prep_for	4	-1
+20	about	IN	O	about	_	0	-1
+21	entities	NNS	O	entity	prep_about	19	36
+22	.	.	O	.	_	0	-1
+</SENT>
