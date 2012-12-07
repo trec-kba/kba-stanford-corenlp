@@ -46,7 +46,7 @@ The file src/nlp/runNER.java takes as input a corpus in format
 and output the one-token-per-line TSV format as
 
     <SENT id="SENTID">
-    WORDID    WORD    POS    NER    LEMMA    DEP-PATH-TO-PARENT    PARENT-ID    COREF-CLUSTER-ID
+    WORDID    WORD    BEGIN_OFFSET:END_OFFSET    POS    NER    LEMMA    DEP-PATH-TO-PARENT    PARENT-ID    COREF-CLUSTER-ID
     ..
     </SENT>
 
