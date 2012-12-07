@@ -153,7 +153,7 @@ public class runNER extends SimpleFunction {
 	    props.put("annotators", "tokenize, cleanxml, ssplit, pos, lemma, ner, parse, dcoref");
 	    
     	props.setProperty("pos.maxlen", "100");
-    	props.setProperty("parser.maxlen", "100");
+    	props.setProperty("parse.maxlen", "100");
     	
 	    StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
 	    
