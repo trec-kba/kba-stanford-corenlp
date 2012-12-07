@@ -20,24 +20,27 @@ import java.util.zip.GZIPOutputStream;
 
 import org.apache.tika.exception.TikaException;
 
-import edu.stanford.nlp.dcoref.CorefChain;
-import edu.stanford.nlp.dcoref.CorefChain.CorefMention;
-import edu.stanford.nlp.ling.CoreAnnotations.LemmaAnnotation;
-import edu.stanford.nlp.ling.CoreAnnotations.NamedEntityTagAnnotation;
-import edu.stanford.nlp.ling.CoreAnnotations.PartOfSpeechAnnotation;
-import edu.stanford.nlp.ling.CoreAnnotations.SentencesAnnotation;
-import edu.stanford.nlp.ling.CoreAnnotations.TextAnnotation;
-import edu.stanford.nlp.ling.CoreAnnotations.TokensAnnotation;
 import edu.stanford.nlp.ling.CoreLabel;
-import edu.stanford.nlp.ling.CorefCoreAnnotations.CorefChainAnnotation;
 import edu.stanford.nlp.pipeline.Annotation;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
-import edu.stanford.nlp.trees.Tree;
-import edu.stanford.nlp.trees.TreeCoreAnnotations.TreeAnnotation;
+import edu.stanford.nlp.util.CoreMap;
+
 import edu.stanford.nlp.trees.semgraph.SemanticGraph;
 import edu.stanford.nlp.trees.semgraph.SemanticGraphCoreAnnotations.CollapsedCCProcessedDependenciesAnnotation;
 import edu.stanford.nlp.trees.semgraph.SemanticGraphEdge;
-import edu.stanford.nlp.util.CoreMap;
+import edu.stanford.nlp.dcoref.CorefChain;
+import edu.stanford.nlp.dcoref.CorefCoreAnnotations.CorefChainAnnotation;
+import edu.stanford.nlp.dcoref.CorefCoreAnnotations.CorefGraphAnnotation;
+import edu.stanford.nlp.dcoref.CorefChain.CorefMention;
+import edu.stanford.nlp.ling.CoreAnnotations.NamedEntityTagAnnotation;
+import edu.stanford.nlp.ling.CoreAnnotations.PartOfSpeechAnnotation;
+import edu.stanford.nlp.ling.CoreAnnotations.LemmaAnnotation;
+import edu.stanford.nlp.ling.CoreAnnotations.SentencesAnnotation;
+import edu.stanford.nlp.ling.CoreAnnotations.TextAnnotation;
+import edu.stanford.nlp.ling.CoreAnnotations.TokensAnnotation;
+import edu.stanford.nlp.trees.Tree;
+import edu.stanford.nlp.trees.TreeCoreAnnotations.TreeAnnotation;
+
 
 class myWord{
 
@@ -91,6 +94,8 @@ public class runNER extends SimpleFunction {
     private StanfordCoreNLP pipeline = null;
     
     public void init() {
+    	   	
+    	
 	    Properties props = new Properties();
 	    props.put("annotators", "tokenize, cleanxml, ssplit, pos, lemma, ner");
 	    pipeline = new StanfordCoreNLP(props);
@@ -245,7 +250,7 @@ public class runNER extends SimpleFunction {
 			    for(Integer clusterID : graph.keySet()){
 			    	CorefChain chain = graph.get(clusterID);
 			    	
-			    	for(CorefMention cm : chain.getCorefMentions()){
+			    	for(CorefMention cm : chain.getMentionsInTextualOrder()){
 			    		//System.out.println("Coref" + clusterID + ":  SENT-" + cm.sentNum + " " + "WORD-" + cm.startIndex + " ~ WORD-" + cm.endIndex + " " + cm.mentionSpan); 
 			    		for(int woffset =  cm.startIndex; woffset < cm.endIndex; woffset ++){
 			    			mydoc.sentences.get(cm.sentNum-1).words.get(woffset-1).corefID = clusterID;

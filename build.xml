@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<project basedir="." default="build" name="tuffy">
+    <property environment="env"/>
+    <property name="junit.output.dir" value="junit"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.6"/>
+    <property name="source" value="1.6"/>
+
+    <path id="tuffy.classpath">
+    
+        <pathelement location="bin"/>
+
+	<pathelement location="lib/commons-io-2.1.jar"/>
+	<pathelement location="lib/commons-io-2.1-javadoc.jar"/>
+	<pathelement location="lib/commons-io-2.1-sources.jar"/>
+	<pathelement location="lib/commons-lang3-3.0-beta.jar"/>
+	<pathelement location="lib/commons-lang3-3.0-beta-javadoc.jar"/>
+	<pathelement location="lib/fastutil.jar"/>
+	<pathelement location="lib/get.sh"/>
+	<pathelement location="lib/hadoop-common-0.21.0.jar"/>
+	<pathelement location="lib/hadoop-core-0.20.203.0.jar"/>
+	<pathelement location="lib/hadoop-hdfs-0.21.0.jar"/>
+	<pathelement location="lib/jgraph.jar"/>
+	<pathelement location="lib/jgrapht.jar"/>
+	<pathelement location="lib/joda-time-2.0-sources.jar"/>
+	<pathelement location="lib/joda-time-2.1-sources.jar"/>
+	<pathelement location="lib/joda-time.jar"/>
+	<pathelement location="lib/jollyday-0.4.7-sources.jar"/>
+	<pathelement location="lib/jollyday.jar"/>
+	<pathelement location="lib/jsr173_1.0_api.jar"/>
+	<pathelement location="lib/liblinear-1.33-with-deps.jar"/>
+	<pathelement location="lib/libsvm.jar"/>
+	<pathelement location="lib/lib.zip"/>
+	<pathelement location="lib/log4j-1.2.15.jar"/>
+	<pathelement location="lib/ra.jar"/>
+	<pathelement location="lib/stanford-corenlp-1.3.4.jar"/>
+	<pathelement location="lib/stanford-corenlp-1.3.4-models.jar"/>
+	<pathelement location="lib/stax-1.2.0.jar"/>
+	<pathelement location="lib/tika-app-0.9.jar"/>
+	<pathelement location="lib/xom.jar"/>
+	<pathelement location="lib/xom-src-1.2.6.jar"/>
+	<pathelement location="lib/xom-src-1.2.8.zip"/>
+
+    </path>
+
+    <target name="init">
+        <mkdir dir="bin"/>
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="src">
+            </fileset>
+        </copy>
+    </target>
+    <target name="clean">
+        <delete dir="bin"/>
+    </target>
+
+    <target depends="clean" name="cleanall"/>
+
+    <target depends="build-subprojects,build-project" name="build"/>
+
+    <target name="build-subprojects"/>
+
+    <target depends="init" name="build-project">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" source="${source}" target="${target}">
+            <src path="src"/>
+            <classpath refid="tuffy.classpath"/>
+        </javac>
+    </target>
+    
+    <!--
+    <target name="Main">
+        <java classname="nlp.runNER" failonerror="true" fork="yes">
+            <classpath refid="tuffy.classpath"/>
+        </java>
+    </target>
+    -->	
+	
+	<target name="ner"
+        description="generate the distribution" >
+		
+		<manifestclasspath property="jar.classpath" jarfile="runNER.jar">
+		<classpath refid="tuffy.classpath"/>
+		</manifestclasspath>
+		
+		
+		<jar jarfile="runNER.jar" basedir="bin">
+		<manifest>
+			<attribute name="Main-Class" value="nlp.runNER"/>
+			<attribute name="Class-Path" value="${jar.classpath}" />
+		</manifest>
+		</jar>
+		
+		
+	</target>
+	
+</project>
