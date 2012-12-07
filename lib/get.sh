@@ -1,12 +1,6 @@
-## TODO: Put lib on some HTTP server, and wget here 
-## I still cannot push the 400M libs into github
 
+wet http://hazy.cs.wisc.edu/hazy/share/kba-wrapper-lib/lib.zip
+unzip lib.zip
 
-
-
-
-
-
-## /TODO: Finish it Dec 6.
 
 
