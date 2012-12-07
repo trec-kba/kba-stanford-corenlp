@@ -62,6 +62,7 @@ class myWord{
 	
 }
 
+
 class mySentence{
 	ArrayList<myWord> words = new ArrayList<myWord>();
 	
@@ -145,6 +146,10 @@ public class runNER extends SimpleFunction {
 		if (!silent) System.err.println("Starting NER...");
 	    Properties props = new Properties();
 	    props.put("annotators", "tokenize, cleanxml, ssplit, pos, lemma, ner, parse, dcoref");
+	    
+    	props.setProperty("pos.maxlen", "100");
+    	props.setProperty("parser.maxlen", "100");
+    	
 	    StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
 	    
 	    String filename = args[0];
