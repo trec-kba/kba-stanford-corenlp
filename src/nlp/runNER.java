@@ -49,6 +49,9 @@ class myWord{
 	public String lemma;
 	public String ne;
 	
+	public int offset1 = 0;
+	public int offset2 = 0;
+	
 	public int corefID;
 	
 	public int dep_partent = 0;
@@ -221,7 +224,13 @@ public class runNER extends SimpleFunction {
 			    		String lemma = token.get(LemmaAnnotation.class);  
 			    		String ne = token.get(NamedEntityTagAnnotation.class);   
 			    		//os.write(wordid + "\t" + word + "\t" + pos + "\t" + ne + "\t" + lemma + "\n");
-			    		mysent.pushWord(new myWord(word, pos, lemma, ne, -1));
+			    	
+			    		myWord myword = new myWord(word, pos, lemma, ne, -1);
+			    		myword.offset1 = token.beginPosition();
+			    		myword.offset2 = token.endPosition();
+			    		
+			    		mysent.pushWord(myword);
+			    	
 			    	}
 			    	//os.write("</SENT>\n\n");
 			    	
@@ -269,7 +278,9 @@ public class runNER extends SimpleFunction {
 			    	int wordid = 0;
 			    	for(myWord myword : mysent.words){
 			    		wordid = wordid + 1;
-			    		os.write(wordid + "\t" + myword.word + "\t" + myword.pos + 
+			    		os.write(wordid + "\t" + myword.word + "\t" + 
+			    								  "\t" + myword.offset1 + ":" + myword.offset2 + 
+			    								  "\t" + myword.pos + 
 			    				                  "\t" + myword.ne + "\t" + myword.lemma + 
 			    				                  "\t" + myword.dep_class + "\t" + myword.dep_partent +
 			    				                  "\t" + myword.corefID + "\n");
