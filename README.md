@@ -28,7 +28,7 @@ To get the .jar file for NER (including parsing and coref), run
 
 This will produce a .jar file called runNER.jar.
 
-    $ java -Xmx1024m runNER.jar <INPUT> <OUTPUT>
+    $ java -jar runNER.jar <INPUT> <OUTPUT>
 
 
 ## NER and Parsing ##
