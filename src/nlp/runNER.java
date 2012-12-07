@@ -278,7 +278,7 @@ public class runNER extends SimpleFunction {
 			    	int wordid = 0;
 			    	for(myWord myword : mysent.words){
 			    		wordid = wordid + 1;
-			    		os.write(wordid + "\t" + myword.word + "\t" + 
+			    		os.write(wordid + "\t" + myword.word + 
 			    								  "\t" + myword.offset1 + ":" + myword.offset2 + 
 			    								  "\t" + myword.pos + 
 			    				                  "\t" + myword.ne + "\t" + myword.lemma + 
