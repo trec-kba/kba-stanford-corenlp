@@ -10,3 +10,11 @@ Join the TREC KBA discussion forum for updates.
 KBA seeks to help humans expand knowledge bases like Wikipedia by automatically recommending edits based on incoming content streams. This open evaluation measures an automatic system's ability to filter a large stream of text for new knowledge about entities.
 
 </FILENAME>
+<FILENAME secondtestdoc>
+KBA systems must disambiguate entity mentions and then select mentioning documents that satisfy a particular info need.
+KBA 2012 focused on a single info need: find documents worthy of citation in Wikipedia without any requirement for novelty and salience.
+KBA 2013 will add more targeted info needs that require novelty and salience, and thus improve the evaluation's sensitivity, i.e. ability to differentiate systems.
+See KBA 2012 Overview slides and KBA 2013 Preview slides.
+The hourly structured of the KBA stream corpus allows entities to evolve.
+Unlike traditional filter topics defined by a list of keyword queries, entities are described by semi-structured articles in a knowledge base (KB) like Wikipedia, Facebook, LinkedIn, Crunchbase, etc. Such KB articles are more human-centric and also provide richer material for modeling.
+</FILENAME>
