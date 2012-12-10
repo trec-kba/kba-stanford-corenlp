@@ -77,6 +77,8 @@
     </target>
     -->	
 	
+    <!-- Ce Zhang:  how much of this build file can we simplify and make non-tuffy -->
+
 	<target name="ner"
         description="generate the distribution" >
 		

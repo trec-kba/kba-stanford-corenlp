@@ -209,7 +209,11 @@ public class runNER extends SimpleFunction {
 	String currentDocid = null;
 	String line;
 	Pattern p = Pattern.compile("<FILENAME (.*?)>");
-	
+
+	/** 
+	 * Ce Zhang, could you wrote a couple comments about the
+	 * logical flow of this loop?
+	 */
 	while((line = is.readLine()) != null){
 	    Matcher m = p.matcher(line);
 	    if(m.find()){
@@ -221,6 +225,7 @@ public class runNER extends SimpleFunction {
 	    
 	    if(line.contains("</FILENAME>")){
 		content += line;
+		// Ce Zhang, what is this replaceAll doing?
 		content = content.replaceAll(" [^<>]*?>", ">");
 		String docid = currentDocid;
 		
@@ -315,6 +320,10 @@ public class runNER extends SimpleFunction {
 		continue;
 	    }
 	    content += "\n" + line;
+
+	    // Ce Zhang, where should <FILENAME...></FILENAME> tags
+	    // get inserted in this loop, so they appear in the
+	    // output?
 	}
 	os.close();
     }
