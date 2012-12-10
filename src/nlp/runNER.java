@@ -121,6 +121,7 @@ public class runNER extends SimpleFunction {
     private StanfordCoreNLP pipeline = null;
 
     // Ce Zhang -- what does this function do?  Is it ever called?
+    // To John: No, it is not used in the currect pipeline. It was used in a project called Textrunner that tries to unify all condor jobs...
     public void init() {
 	    Properties props = new Properties();
 	    props.put("annotators", "tokenize, cleanxml, ssplit, pos, lemma, ner");
@@ -226,6 +227,7 @@ public class runNER extends SimpleFunction {
 	    if(line.contains("</FILENAME>")){
 		content += line;
 		// Ce Zhang, what is this replaceAll doing?
+		// To John: we want <AAA src=xxx style=yyy> to be <AAA>
 		content = content.replaceAll(" [^<>]*?>", ">");
 		String docid = currentDocid;
 		
@@ -324,6 +326,7 @@ public class runNER extends SimpleFunction {
 	    // Ce Zhang, where should <FILENAME...></FILENAME> tags
 	    // get inserted in this loop, so they appear in the
 	    // output?
+	    // To John: you want that in the output? If you want, before line-302 and after line-319.
 	}
 	os.close();
     }
