@@ -1,4 +1,13 @@
 package nlp;
+/**
+ * This wrapper around Stanford's CoreNLP library produces a
+ * one-word-per-line output that includes lemmatization, part of
+ * speech tagging, dependency parsing, NER classification, and in-doc
+ * coreference resolution.
+ * 
+ * This was created for the TREC KBA evaluation and is released under
+ * the GPL, because Stanford CoreNLP is released under the GPL.
+ */
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -41,7 +50,9 @@ import edu.stanford.nlp.ling.CoreAnnotations.TokensAnnotation;
 import edu.stanford.nlp.trees.Tree;
 import edu.stanford.nlp.trees.TreeCoreAnnotations.TreeAnnotation;
 
-
+/** 
+ * Convenience class for organizing the data coming out of CoreNLP
+ */
 class myWord{
 
 	public String word;
@@ -68,7 +79,9 @@ class myWord{
 	
 }
 
-
+/** 
+ * Convenience class for organizing the data coming out of CoreNLP
+ */
 class mySentence{
 	ArrayList<myWord> words = new ArrayList<myWord>();
 	
@@ -77,6 +90,9 @@ class mySentence{
 	}
 }
 
+/** 
+ * Convenience class for organizing the data coming out of CoreNLP
+ */
 class myDocument{
 	ArrayList<mySentence> sentences = new ArrayList<mySentence>();
 	
@@ -85,6 +101,14 @@ class myDocument{
 	}
 }
 
+
+/** 
+ * Adapted from the example wrapper provided by Stanford CoreNLP.
+ * 
+ * This generates one-word-per-line (OWPL) output by reading in a very
+ * simple XML file containing blobs of text from files.  The OWPL
+ * output is put into a text file with similarly simple XML structure.
+ */
 public class runNER extends SimpleFunction {
 	private static boolean silent = true;
 	private static boolean input_compressed = false;
@@ -95,17 +119,15 @@ public class runNER extends SimpleFunction {
     private Pattern patternDocHead = Pattern.compile("<FILENAME (.*?)>");
     
     private StanfordCoreNLP pipeline = null;
-    
+
+    // Ce Zhang -- what does this function do?  Is it ever called?
     public void init() {
-    	   	
-    	
 	    Properties props = new Properties();
 	    props.put("annotators", "tokenize, cleanxml, ssplit, pos, lemma, ner");
 	    pipeline = new StanfordCoreNLP(props);
-	    
     }
     
-	public List<String> process(String doc){
+    public List<String> process(String doc){
     	Matcher m = patternDocHead.matcher(doc);
     	String docid = "NA";
     	if(m.find()){
