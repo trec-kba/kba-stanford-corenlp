@@ -215,97 +215,97 @@ public class runNER extends SimpleFunction {
 	 * Ce Zhang, could you wrote a couple comments about the
 	 * logical flow of this loop?
 	 */
-	while((line = is.readLine()) != null){
-	    Matcher m = p.matcher(line);
+	while((line = is.readLine()) != null){	// for each line
+	    Matcher m = p.matcher(line);	// is it a <FILENAME...> line
 	    if(m.find()){
 		if (!silent) System.err.println(line);
-		content += "\n" + line;
-		currentDocid = m.group(1);
+		content += "\n" + line;		// append this line to content
+		currentDocid = m.group(1);	// parse docid
 		continue;
 	    }
 	    
-	    if(line.contains("</FILENAME>")){
-		content += line;
+	    if(line.contains("</FILENAME>")){	// is it a </FILENAME> line, if it is, process the "content" variable
+		content += line;		// append this line
 		// Ce Zhang, what is this replaceAll doing?
 		// To John: we want <AAA src=xxx style=yyy> to be <AAA>
-		content = content.replaceAll(" [^<>]*?>", ">");
-		String docid = currentDocid;
+		content = content.replaceAll(" [^<>]*?>", ">");	
+		String docid = currentDocid;	// set doc-id
 		
-		Annotation document = new Annotation(content);
-		pipeline.annotate(document);
-		List<CoreMap> sentences = document.get(SentencesAnnotation.class);
+		Annotation document = new Annotation(content);	
+		pipeline.annotate(document);	// run Stanford CoreNLP
+		List<CoreMap> sentences = document.get(SentencesAnnotation.class);	// get set of sentences
 		
-		myDocument mydoc = new myDocument();
+		myDocument mydoc = new myDocument();	// object for a document object
 		
 		int sentid = 0;
-		for(CoreMap sentence: sentences) {
+		for(CoreMap sentence: sentences) {	// for each sentence
 		    
-		    mySentence mysent = new mySentence();
+		    mySentence mysent = new mySentence();	// object for a sentence output
 		    
-		    sentid = sentid + 1;
+		    sentid = sentid + 1;			// sentence id
 		    //os.write("<SENT id=\"" + docid + "_SENT_" + sentid + "\">\n");
 		    
 		    int wordid = 0;
-		    for (CoreLabel token: sentence.get(TokensAnnotation.class)) {
-			++wordid;
+		    for (CoreLabel token: sentence.get(TokensAnnotation.class)) {	// for each word
+			++wordid;				// word id
 			String word = token.get(TextAnnotation.class);
 			String pos = token.get(PartOfSpeechAnnotation.class);
 			String lemma = token.get(LemmaAnnotation.class);  
-			String ne = token.get(NamedEntityTagAnnotation.class);   
+			String ne = token.get(NamedEntityTagAnnotation.class);	// get annotation   
 			//os.write(wordid + "\t" + word + "\t" + pos + "\t" + ne + "\t" + lemma + "\n");
 			
-			myWord myword = new myWord(word, pos, lemma, ne, -1);
-			myword.offset1 = token.beginPosition();
-			myword.offset2 = token.endPosition();
+			myWord myword = new myWord(word, pos, lemma, ne, -1);	// object for a word output
+			myword.offset1 = token.beginPosition();	// set start offset
+			myword.offset2 = token.endPosition();	// set end offset
 			
-			mysent.pushWord(myword);
+			mysent.pushWord(myword);		// add word output to sentence output
 			
 		    }
 		    //os.write("</SENT>\n\n");
 		    
-		    Tree tree = sentence.get(TreeAnnotation.class);
+		    Tree tree = sentence.get(TreeAnnotation.class);	
 		    
-		    SemanticGraph dependencies = sentence.get(CollapsedCCProcessedDependenciesAnnotation.class);
+		    SemanticGraph dependencies = sentence.get(CollapsedCCProcessedDependenciesAnnotation.class);  //get parser result
 		    
 		    for(SemanticGraphEdge edge : dependencies.getEdgeSet()){
 			
-			myWord source = mysent.words.get(edge.getSource().index()-1);
-			myWord target = mysent.words.get(edge.getTarget().index()-1);
+			myWord source = mysent.words.get(edge.getSource().index()-1);	// get start word of a path
+			myWord target = mysent.words.get(edge.getTarget().index()-1);	// get end word of a path
 			
-			target.dep_class = edge.toString();
-			target.dep_partent = edge.getSource().index();
+			target.dep_class = edge.toString();	// set label of the path
+			target.dep_partent = edge.getSource().index();	// set parent word of a word
 			
 		    }
 		    
 			    	
-		    mydoc.pushSentence(mysent);
+		    mydoc.pushSentence(mysent);	// add sentence to a document
 		    
 		    //System.out.println(depden)
 		}
 		
-		Map<Integer, CorefChain> graph = document.get(CorefChainAnnotation.class);
+		Map<Integer, CorefChain> graph = document.get(CorefChainAnnotation.class);	// get co-reference result
 		
-		for(Integer clusterID : graph.keySet()){
-		    CorefChain chain = graph.get(clusterID);
+		for(Integer clusterID : graph.keySet()){	// for each cluster
+		    CorefChain chain = graph.get(clusterID);	
 		    
-		    for(CorefMention cm : chain.getMentionsInTextualOrder()){
+		    for(CorefMention cm : chain.getMentionsInTextualOrder()){	// for each mention in the cluster
 			//System.out.println("Coref" + clusterID + ":  SENT-" + cm.sentNum + " " + "WORD-" + cm.startIndex + " ~ WORD-" + cm.endIndex + " " + cm.mentionSpan); 
-			for(int woffset =  cm.startIndex; woffset < cm.endIndex; woffset ++){
-			    mydoc.sentences.get(cm.sentNum-1).words.get(woffset-1).corefID = clusterID;
+			for(int woffset =  cm.startIndex; woffset < cm.endIndex; woffset ++){	// for each word in the mention
+			    mydoc.sentences.get(cm.sentNum-1).words.get(woffset-1).corefID = clusterID;		// update the word's cluster ID
 			}
 			
 		    }
 		}
 		
 		
-		sentid = 0;
-		for(mySentence mysent : mydoc.sentences){
+		sentid = 0;	// lets output!!
+		for(mySentence mysent : mydoc.sentences){	// for each sentence
 		    
 		    sentid = sentid + 1;
-		    os.write("<SENT id=\"" + docid + "_SENT_" + sentid + "\">\n");
+		    os.write("<SENT id=\"" + docid + "_SENT_" + sentid + "\">\n");	// output <SENT>
 		    
 		    int wordid = 0;
-		    for(myWord myword : mysent.words){
+		    for(myWord myword : mysent.words){	// for each word, output a line
 			wordid = wordid + 1;
 			os.write(wordid + "\t" + myword.word + 
 				 "\t" + myword.offset1 + ":" + myword.offset2 + 
@@ -315,13 +315,13 @@ public class runNER extends SimpleFunction {
 				 "\t" + myword.corefID + "\n");
 		    }
 		    
-		    os.write("</SENT>\n");
+		    os.write("</SENT>\n");	// output </SENT>
 		}
 		
-		content = "";
-		continue;
+		content = "";	// clear "content" such that we can start a new document
+		continue;	// continue, so that we will not get line324 (content += "\n" + line;).
 	    }
-	    content += "\n" + line;
+	    content += "\n" + line;	// otherwise, append line to content
 
 	    // Ce Zhang, where should <FILENAME...></FILENAME> tags
 	    // get inserted in this loop, so they appear in the
