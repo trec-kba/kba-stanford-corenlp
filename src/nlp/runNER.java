@@ -133,189 +133,189 @@ public class runNER extends SimpleFunction {
     	if(m.find()){
     		docid = m.group(1);
     	}
-		doc = doc.replaceAll(" [^<>]*?>", ">");
-	    Annotation document = new Annotation(doc);
-	    pipeline.annotate(document);
-	    List<CoreMap> sentences = document.get(SentencesAnnotation.class);
-	    ArrayList<String> parsedSentences = new ArrayList<String>();
-	    
-	    myDocument mydoc = new myDocument();
-	    
-	    int sentid = 0;
-	    for(CoreMap sentence: sentences) {
-	    	
-	    	mySentence mysent = new mySentence();
-	    	
-	    	sentid = sentid + 1;
-		    StringBuffer sb = new StringBuffer();
-	    	sb.append("<SENT docid=\"" + docid + "\" sentid=\"" + sentid + "\">\n");
-	    	
-	    	int wordid = 0;
-	    	for (CoreLabel token: sentence.get(TokensAnnotation.class)) {
-	    		++wordid;
-	    		String word = token.get(TextAnnotation.class);
-	    		String pos = token.get(PartOfSpeechAnnotation.class);
-	    		String lemma = token.get(LemmaAnnotation.class);  
-	    		String ne = token.get(NamedEntityTagAnnotation.class);   
-	    		sb.append(wordid + "\t" + word + "\t" + pos + "\t" + ne + "\t" + lemma + "\n");
-	    		
-	    		mysent.pushWord(new myWord(word, pos, lemma, ne, -1));
-	    		
-	    	}
-	    	
-	    	mydoc.pushSentence(mysent);
-	    	
-	    	sb.append("</SENT>");
-	    	parsedSentences.add(sb.toString());
-	    }
-	    
-		return null;
-	}
+	doc = doc.replaceAll(" [^<>]*?>", ">");
+        Annotation document = new Annotation(doc);
+        pipeline.annotate(document);
+	List<CoreMap> sentences = document.get(SentencesAnnotation.class);
+	ArrayList<String> parsedSentences = new ArrayList<String>();
 	
-	static public void main(String[] args) throws IOException, TikaException{
-		if (!silent) System.err.println("Starting NER...");
-	    Properties props = new Properties();
-	    props.put("annotators", "tokenize, cleanxml, ssplit, pos, lemma, ner, parse, dcoref");
+	myDocument mydoc = new myDocument();
 	    
+	int sentid = 0;
+	for(CoreMap sentence: sentences) {
+	    	
+	    mySentence mysent = new mySentence();
+	    	
+	    sentid = sentid + 1;
+	    StringBuffer sb = new StringBuffer();
+	    sb.append("<SENT docid=\"" + docid + "\" sentid=\"" + sentid + "\">\n");
+	    	
+	    int wordid = 0;
+	    for (CoreLabel token: sentence.get(TokensAnnotation.class)) {
+		++wordid;
+		String word = token.get(TextAnnotation.class);
+		String pos = token.get(PartOfSpeechAnnotation.class);
+		String lemma = token.get(LemmaAnnotation.class);  
+		String ne = token.get(NamedEntityTagAnnotation.class);   
+		sb.append(wordid + "\t" + word + "\t" + pos + "\t" + ne + "\t" + lemma + "\n");
+	    		
+		mysent.pushWord(new myWord(word, pos, lemma, ne, -1));
+	    		
+	    }
+	    	
+	    mydoc.pushSentence(mysent);
+	    	
+	    sb.append("</SENT>");
+	    parsedSentences.add(sb.toString());
+	}
+	    
+	return null;
+    }
+	
+    static public void main(String[] args) throws IOException, TikaException{
+	if (!silent) System.err.println("Starting NER...");
+	Properties props = new Properties();
+	props.put("annotators", "tokenize, cleanxml, ssplit, pos, lemma, ner, parse, dcoref");
+	
     	props.setProperty("pos.maxlen", "100");
     	props.setProperty("parse.maxlen", "100");
     	
-	    StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
-	    
-	    String filename = args[0];
-	    String outfilename = args[1];
-	    
-	    BufferedReader is = null;
-	    if (!input_compressed) {
-	    	is = new BufferedReader(new FileReader(filename));
-	    } else {
-		    FileInputStream fin = new FileInputStream(filename);
-		    GZIPInputStream gzis = new GZIPInputStream(fin);
-		    InputStreamReader xover = new InputStreamReader(gzis);
-		    is = new BufferedReader(xover);
-	    }
-	    
-	    BufferedWriter os = null;
-	    if (!compress_output) {
-	    	os = new BufferedWriter(new FileWriter(outfilename));
-	    } else {
-		    FileOutputStream fout = new FileOutputStream(outfilename);
-		    GZIPOutputStream gzos = new GZIPOutputStream(fout);
-		    OutputStreamWriter xover2 = new OutputStreamWriter(gzos);
-		    os = new BufferedWriter(xover2);
-	    }
-	    
-	    String content = "";
-	    String currentDocid = null;
-	    String line;
-	    Pattern p = Pattern.compile("<FILENAME (.*?)>");
-	    
-	    while((line = is.readLine()) != null){
-	    	Matcher m = p.matcher(line);
-	    	if(m.find()){
-		    	if (!silent) System.err.println(line);
-	    		content += "\n" + line;
-	    		currentDocid = m.group(1);
-	    		continue;
-	    	}
-	    	
-	    	if(line.contains("</FILENAME>")){
-	    		content += line;
-	    		content = content.replaceAll(" [^<>]*?>", ">");
-	    		String docid = currentDocid;
-				
-			    Annotation document = new Annotation(content);
-			    pipeline.annotate(document);
-			    List<CoreMap> sentences = document.get(SentencesAnnotation.class);
-			    
-			    myDocument mydoc = new myDocument();
-			    
-			    int sentid = 0;
-			    for(CoreMap sentence: sentences) {
-			    	
-			    	mySentence mysent = new mySentence();
-			    	
-			    	sentid = sentid + 1;
-			    	//os.write("<SENT id=\"" + docid + "_SENT_" + sentid + "\">\n");
-			    	
-			    	int wordid = 0;
-			    	for (CoreLabel token: sentence.get(TokensAnnotation.class)) {
-			    		++wordid;
-			    		String word = token.get(TextAnnotation.class);
-			    		String pos = token.get(PartOfSpeechAnnotation.class);
-			    		String lemma = token.get(LemmaAnnotation.class);  
-			    		String ne = token.get(NamedEntityTagAnnotation.class);   
-			    		//os.write(wordid + "\t" + word + "\t" + pos + "\t" + ne + "\t" + lemma + "\n");
-			    	
-			    		myWord myword = new myWord(word, pos, lemma, ne, -1);
-			    		myword.offset1 = token.beginPosition();
-			    		myword.offset2 = token.endPosition();
-			    		
-			    		mysent.pushWord(myword);
-			    	
-			    	}
-			    	//os.write("</SENT>\n\n");
-			    	
-			    	Tree tree = sentence.get(TreeAnnotation.class);
-			    	
-			    	SemanticGraph dependencies = sentence.get(CollapsedCCProcessedDependenciesAnnotation.class);
-			    	
-			    	for(SemanticGraphEdge edge : dependencies.getEdgeSet()){
-			    		
-			    		myWord source = mysent.words.get(edge.getSource().index()-1);
-			    		myWord target = mysent.words.get(edge.getTarget().index()-1);
-			    		
-			    		target.dep_class = edge.toString();
-			    		target.dep_partent = edge.getSource().index();
-			    		
-			    	}
-			    	
-			    	
-			    	mydoc.pushSentence(mysent);
-			    	
-			    	//System.out.println(depden)
-			    }
-			    
-			    Map<Integer, CorefChain> graph = document.get(CorefChainAnnotation.class);
-			    
-			    for(Integer clusterID : graph.keySet()){
-			    	CorefChain chain = graph.get(clusterID);
-			    	
-			    	for(CorefMention cm : chain.getMentionsInTextualOrder()){
-			    		//System.out.println("Coref" + clusterID + ":  SENT-" + cm.sentNum + " " + "WORD-" + cm.startIndex + " ~ WORD-" + cm.endIndex + " " + cm.mentionSpan); 
-			    		for(int woffset =  cm.startIndex; woffset < cm.endIndex; woffset ++){
-			    			mydoc.sentences.get(cm.sentNum-1).words.get(woffset-1).corefID = clusterID;
-			    		}
-			    	
-			    	}
-			    }
-			    
-			    
-			    sentid = 0;
-			    for(mySentence mysent : mydoc.sentences){
-			    	
-			    	sentid = sentid + 1;
-			    	os.write("<SENT id=\"" + docid + "_SENT_" + sentid + "\">\n");
-			    	
-			    	int wordid = 0;
-			    	for(myWord myword : mysent.words){
-			    		wordid = wordid + 1;
-			    		os.write(wordid + "\t" + myword.word + 
-			    								  "\t" + myword.offset1 + ":" + myword.offset2 + 
-			    								  "\t" + myword.pos + 
-			    				                  "\t" + myword.ne + "\t" + myword.lemma + 
-			    				                  "\t" + myword.dep_class + "\t" + myword.dep_partent +
-			    				                  "\t" + myword.corefID + "\n");
-			    	}
-			    	
-			    	os.write("</SENT>\n");
-			    }
-			    
-			    content = "";
-			    continue;
-	    	}
-	    	content += "\n" + line;
-	    }
-	    os.close();
+	StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
+	
+	String filename = args[0];
+	String outfilename = args[1];
+	
+	BufferedReader is = null;
+	if (!input_compressed) {
+	    is = new BufferedReader(new FileReader(filename));
+	} else {
+	    FileInputStream fin = new FileInputStream(filename);
+	    GZIPInputStream gzis = new GZIPInputStream(fin);
+	    InputStreamReader xover = new InputStreamReader(gzis);
+	    is = new BufferedReader(xover);
 	}
+	
+	BufferedWriter os = null;
+	if (!compress_output) {
+	    os = new BufferedWriter(new FileWriter(outfilename));
+	} else {
+	    FileOutputStream fout = new FileOutputStream(outfilename);
+	    GZIPOutputStream gzos = new GZIPOutputStream(fout);
+	    OutputStreamWriter xover2 = new OutputStreamWriter(gzos);
+	    os = new BufferedWriter(xover2);
+	}
+	
+	String content = "";
+	String currentDocid = null;
+	String line;
+	Pattern p = Pattern.compile("<FILENAME (.*?)>");
+	
+	while((line = is.readLine()) != null){
+	    Matcher m = p.matcher(line);
+	    if(m.find()){
+		if (!silent) System.err.println(line);
+		content += "\n" + line;
+		currentDocid = m.group(1);
+		continue;
+	    }
+	    
+	    if(line.contains("</FILENAME>")){
+		content += line;
+		content = content.replaceAll(" [^<>]*?>", ">");
+		String docid = currentDocid;
+		
+		Annotation document = new Annotation(content);
+		pipeline.annotate(document);
+		List<CoreMap> sentences = document.get(SentencesAnnotation.class);
+		
+		myDocument mydoc = new myDocument();
+		
+		int sentid = 0;
+		for(CoreMap sentence: sentences) {
+		    
+		    mySentence mysent = new mySentence();
+		    
+		    sentid = sentid + 1;
+		    //os.write("<SENT id=\"" + docid + "_SENT_" + sentid + "\">\n");
+		    
+		    int wordid = 0;
+		    for (CoreLabel token: sentence.get(TokensAnnotation.class)) {
+			++wordid;
+			String word = token.get(TextAnnotation.class);
+			String pos = token.get(PartOfSpeechAnnotation.class);
+			String lemma = token.get(LemmaAnnotation.class);  
+			String ne = token.get(NamedEntityTagAnnotation.class);   
+			//os.write(wordid + "\t" + word + "\t" + pos + "\t" + ne + "\t" + lemma + "\n");
+			
+			myWord myword = new myWord(word, pos, lemma, ne, -1);
+			myword.offset1 = token.beginPosition();
+			myword.offset2 = token.endPosition();
+			
+			mysent.pushWord(myword);
+			
+		    }
+		    //os.write("</SENT>\n\n");
+		    
+		    Tree tree = sentence.get(TreeAnnotation.class);
+		    
+		    SemanticGraph dependencies = sentence.get(CollapsedCCProcessedDependenciesAnnotation.class);
+		    
+		    for(SemanticGraphEdge edge : dependencies.getEdgeSet()){
+			
+			myWord source = mysent.words.get(edge.getSource().index()-1);
+			myWord target = mysent.words.get(edge.getTarget().index()-1);
+			
+			target.dep_class = edge.toString();
+			target.dep_partent = edge.getSource().index();
+			
+		    }
+		    
+			    	
+		    mydoc.pushSentence(mysent);
+		    
+		    //System.out.println(depden)
+		}
+		
+		Map<Integer, CorefChain> graph = document.get(CorefChainAnnotation.class);
+		
+		for(Integer clusterID : graph.keySet()){
+		    CorefChain chain = graph.get(clusterID);
+		    
+		    for(CorefMention cm : chain.getMentionsInTextualOrder()){
+			//System.out.println("Coref" + clusterID + ":  SENT-" + cm.sentNum + " " + "WORD-" + cm.startIndex + " ~ WORD-" + cm.endIndex + " " + cm.mentionSpan); 
+			for(int woffset =  cm.startIndex; woffset < cm.endIndex; woffset ++){
+			    mydoc.sentences.get(cm.sentNum-1).words.get(woffset-1).corefID = clusterID;
+			}
+			
+		    }
+		}
+		
+		
+		sentid = 0;
+		for(mySentence mysent : mydoc.sentences){
+		    
+		    sentid = sentid + 1;
+		    os.write("<SENT id=\"" + docid + "_SENT_" + sentid + "\">\n");
+		    
+		    int wordid = 0;
+		    for(myWord myword : mysent.words){
+			wordid = wordid + 1;
+			os.write(wordid + "\t" + myword.word + 
+				 "\t" + myword.offset1 + ":" + myword.offset2 + 
+				 "\t" + myword.pos + 
+				 "\t" + myword.ne + "\t" + myword.lemma + 
+				 "\t" + myword.dep_class + "\t" + myword.dep_partent +
+				 "\t" + myword.corefID + "\n");
+		    }
+		    
+		    os.write("</SENT>\n");
+		}
+		
+		content = "";
+		continue;
+	    }
+	    content += "\n" + line;
+	}
+	os.close();
+    }
 }
