@@ -1,5 +1,5 @@
 <FILENAME id="testdocument">
-<SENT id="testdocument_SENT_1">
+<SENT id="testdocument_SENT_0">
 1	KBA	12:15	NNP	O	KBA	nsubj	5	5
 2	2012	16:20	CD	DATE	2012	num	1	5
 3	was	21:24	VBD	O	be	cop	5	-1
@@ -18,14 +18,14 @@
 16	task	84:88	NN	O	task	dobj	13	9
 17	.	88:89	.	O	.	_	0	-1
 </SENT>
-<SENT id="testdocument_SENT_2">
+<SENT id="testdocument_SENT_1">
 1	This	91:95	DT	O	this	det	2	5
 2	KBA	96:99	NN	O	kba	nsubj	4	5
 3	is	100:102	VBZ	O	be	cop	4	-1
 4	good	103:107	JJ	O	good	_	0	-1
 5	!	107:108	.	O	!	_	0	-1
 </SENT>
-<SENT id="testdocument_SENT_3">
+<SENT id="testdocument_SENT_2">
 1	KBA	110:113	NNP	O	KBA	nsubj	4	12
 2	2013	114:118	CD	DATE	2013	num	1	12
 3	is	119:121	VBZ	O	be	aux	4	-1
@@ -42,7 +42,7 @@
 14	corpus	175:181	NN	O	corpus	prep_with	4	15
 15	.	181:182	.	O	.	_	0	-1
 </SENT>
-<SENT id="testdocument_SENT_4">
+<SENT id="testdocument_SENT_3">
 1	Join	184:188	VB	O	join	_	0	-1
 2	the	189:192	DT	O	the	det	6	16
 3	TREC	193:197	NN	O	trec	nn	6	16
@@ -53,7 +53,7 @@
 8	updates	223:230	NNS	O	update	prep_for	6	18
 9	.	230:231	.	O	.	_	0	-1
 </SENT>
-<SENT id="testdocument_SENT_5">
+<SENT id="testdocument_SENT_4">
 1	KBA	233:236	NNP	O	KBA	nsubj	2	12
 2	seeks	237:242	VBZ	O	seek	_	0	-1
 3	to	243:245	TO	O	to	aux	4	-1
@@ -75,7 +75,7 @@
 19	streams	358:365	NNS	O	stream	pobj	13	25
 20	.	365:366	.	O	.	_	0	-1
 </SENT>
-<SENT id="testdocument_SENT_6">
+<SENT id="testdocument_SENT_5">
 1	This	367:371	DT	O	this	det	3	26
 2	open	372:376	JJ	O	open	amod	3	26
 3	evaluation	377:387	NN	O	evaluation	nsubj	4	26
@@ -101,7 +101,7 @@
 </SENT>
 </FILENAME>
 <FILENAME id="secondtestdoc">
-<SENT id="secondtestdoc_SENT_1">
+<SENT id="secondtestdoc_SENT_0">
 1	KBA	12:15	NN	O	kba	nn	2	1
 2	systems	16:23	NNS	O	system	nsubj	4	1
 3	must	24:28	MD	O	must	aux	4	-1
@@ -121,7 +121,7 @@
 17	need	126:130	NN	O	need	dobj	13	9
 18	.	130:131	.	O	.	_	0	-1
 </SENT>
-<SENT id="secondtestdoc_SENT_2">
+<SENT id="secondtestdoc_SENT_1">
 1	KBA	132:135	NNP	O	KBA	nsubj	3	12
 2	2012	136:140	CD	DATE	2012	num	1	12
 3	focused	141:148	VBD	O	focus	_	0	-1
@@ -147,7 +147,7 @@
 23	salience	259:267	NN	O	salience	conj_and	21	19
 24	.	267:268	.	O	.	_	0	-1
 </SENT>
-<SENT id="secondtestdoc_SENT_3">
+<SENT id="secondtestdoc_SENT_2">
 1	KBA	269:272	NNP	O	KBA	nsubj	17	21
 2	2013	273:277	CD	DATE	2013	num	1	20
 3	will	278:282	MD	O	will	aux	4	-1
@@ -177,7 +177,7 @@
 27	systems	424:431	NNS	O	system	dobj	26	1
 28	.	431:432	.	O	.	_	0	-1
 </SENT>
-<SENT id="secondtestdoc_SENT_4">
+<SENT id="secondtestdoc_SENT_3">
 1	See	433:436	VB	O	see	_	0	-1
 2	KBA	437:440	NNP	O	KBA	dep	5	21
 3	2012	441:445	CD	DATE	2012	num	5	34
@@ -190,7 +190,7 @@
 10	slides	483:489	NNS	O	slide	conj_and	5	36
 11	.	489:490	.	O	.	_	0	-1
 </SENT>
-<SENT id="secondtestdoc_SENT_5">
+<SENT id="secondtestdoc_SENT_4">
 1	The	491:494	DT	O	the	det	8	38
 2	hourly	495:501	JJ	SET	hourly	amod	8	37
 3	structured	502:512	JJ	O	structured	amod	8	38
@@ -205,7 +205,7 @@
 12	evolve	557:563	VB	O	evolve	xcomp	9	-1
 13	.	563:564	.	O	.	_	0	-1
 </SENT>
-<SENT id="secondtestdoc_SENT_6">
+<SENT id="secondtestdoc_SENT_5">
 1	Unlike	565:571	IN	O	unlike	_	0	-1
 2	traditional	572:583	JJ	O	traditional	amod	4	44
 3	filter	584:590	NN	O	filter	nn	4	44
@@ -243,7 +243,7 @@
 35	etc.	760:763	FW	O	etc.	dep	27	-1
 36	.	763:764	.	O	.	_	0	-1
 </SENT>
-<SENT id="secondtestdoc_SENT_7">
+<SENT id="secondtestdoc_SENT_6">
 1	Such	765:769	JJ	O	such	amod	3	58
 2	KB	770:772	NN	O	kb	nn	3	58
 3	articles	773:781	NNS	O	article	nsubj	9	58
