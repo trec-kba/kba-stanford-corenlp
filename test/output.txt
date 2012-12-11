@@ -1,100 +1,262 @@
+<FILENAME id="testdocument">
 <SENT id="testdocument_SENT_1">
-1	KBA	NNP	O	KBA	nsubj	5	5
-2	2012	CD	DATE	2012	num	1	5
-3	was	VBD	O	be	cop	5	-1
-4	very	RB	O	very	advmod	5	-1
-5	exciting	JJ	O	exciting	_	0	-1
-6	:	:	O	:	_	0	-1
-7	11	CD	NUMBER	11	num	8	6
-8	teams	NNS	O	team	dep	5	6
-9	submitted	VBN	O	submit	partmod	8	6
-10	43	CD	NUMBER	43	num	11	8
-11	runs	NNS	O	run	dobj	9	8
-12	to	TO	O	to	aux	13	6
-13	solve	VB	O	solve	xcomp	9	6
-14	the	DT	O	the	det	16	9
-15	CCR	NNP	ORGANIZATION	CCR	nn	16	9
-16	task	NN	O	task	dobj	13	9
-17	.	.	O	.	_	0	-1
+1	KBA	12:15	NNP	O	KBA	nsubj	5	5
+2	2012	16:20	CD	DATE	2012	num	1	5
+3	was	21:24	VBD	O	be	cop	5	-1
+4	very	25:29	RB	O	very	advmod	5	-1
+5	exciting	30:38	JJ	O	exciting	_	0	-1
+6	:	38:39	:	O	:	_	0	-1
+7	11	40:42	CD	NUMBER	11	num	8	6
+8	teams	43:48	NNS	O	team	dep	5	6
+9	submitted	49:58	VBN	O	submit	partmod	8	6
+10	43	59:61	CD	NUMBER	43	num	11	8
+11	runs	62:66	NNS	O	run	dobj	9	8
+12	to	67:69	TO	O	to	aux	13	6
+13	solve	70:75	VB	O	solve	xcomp	9	6
+14	the	76:79	DT	O	the	det	16	9
+15	CCR	80:83	NN	ORGANIZATION	ccr	nn	16	9
+16	task	84:88	NN	O	task	dobj	13	9
+17	.	88:89	.	O	.	_	0	-1
 </SENT>
 <SENT id="testdocument_SENT_2">
-1	This	DT	O	this	det	2	5
-2	KBA	NNP	O	KBA	nsubj	4	5
-3	is	VBZ	O	be	cop	4	-1
-4	good	JJ	O	good	_	0	-1
-5	!	.	O	!	_	0	-1
+1	This	91:95	DT	O	this	det	2	5
+2	KBA	96:99	NN	O	kba	nsubj	4	5
+3	is	100:102	VBZ	O	be	cop	4	-1
+4	good	103:107	JJ	O	good	_	0	-1
+5	!	107:108	.	O	!	_	0	-1
 </SENT>
 <SENT id="testdocument_SENT_3">
-1	KBA	NNP	O	KBA	nsubj	4	12
-2	2013	CD	DATE	2013	num	1	12
-3	is	VBZ	O	be	aux	4	-1
-4	gearing	VBG	O	gear	_	0	-1
-5	up	RP	O	up	prt	4	-1
-6	with	IN	O	with	_	0	-1
-7	more	JJR	O	more	amod	8	14
-8	tasks	NNS	O	task	prep_with	4	14
-9	and	CC	O	and	_	0	13
-10	an	DT	O	a	det	14	15
-11	even	RB	O	even	advmod	12	15
-12	richer	JJR	O	richer	amod	14	15
-13	stream	NN	O	stream	nn	14	15
-14	corpus	NN	O	corpus	prep_with	4	15
-15	.	.	O	.	_	0	-1
+1	KBA	110:113	NNP	O	KBA	nsubj	4	12
+2	2013	114:118	CD	DATE	2013	num	1	12
+3	is	119:121	VBZ	O	be	aux	4	-1
+4	gearing	122:129	VBG	O	gear	_	0	-1
+5	up	130:132	RP	O	up	prt	4	-1
+6	with	133:137	IN	O	with	_	0	-1
+7	more	138:142	JJR	O	more	amod	8	14
+8	tasks	143:148	NNS	O	task	prep_with	4	14
+9	and	149:152	CC	O	and	_	0	13
+10	an	153:155	DT	O	a	det	14	15
+11	even	156:160	RB	O	even	advmod	12	15
+12	richer	161:167	JJR	O	richer	amod	14	15
+13	stream	168:174	NN	O	stream	nn	14	15
+14	corpus	175:181	NN	O	corpus	prep_with	4	15
+15	.	181:182	.	O	.	_	0	-1
 </SENT>
 <SENT id="testdocument_SENT_4">
-1	Join	VB	O	join	_	0	-1
-2	the	DT	O	the	det	6	16
-3	TREC	NNP	O	TREC	nn	6	16
-4	KBA	NNP	O	KBA	nn	6	16
-5	discussion	NN	O	discussion	nn	6	16
-6	forum	NN	O	forum	dobj	1	16
-7	for	IN	O	for	_	0	16
-8	updates	NNS	O	update	prep_for	6	18
-9	.	.	O	.	_	0	-1
+1	Join	184:188	VB	O	join	_	0	-1
+2	the	189:192	DT	O	the	det	6	16
+3	TREC	193:197	NN	O	trec	nn	6	16
+4	KBA	198:201	NN	O	kba	nn	6	16
+5	discussion	202:212	NN	O	discussion	nn	6	16
+6	forum	213:218	NN	O	forum	dobj	1	16
+7	for	219:222	IN	O	for	_	0	16
+8	updates	223:230	NNS	O	update	prep_for	6	18
+9	.	230:231	.	O	.	_	0	-1
 </SENT>
 <SENT id="testdocument_SENT_5">
-1	KBA	NNP	O	KBA	nsubj	2	12
-2	seeks	VBZ	O	seek	_	0	-1
-3	to	TO	O	to	aux	4	-1
-4	help	VB	O	help	xcomp	2	-1
-5	humans	NNS	O	human	nsubj	6	21
-6	expand	VB	O	expand	ccomp	4	-1
-7	knowledge	NN	O	knowledge	nn	8	22
-8	bases	NNS	O	basis	dobj	6	22
-9	like	IN	O	like	_	0	22
-10	Wikipedia	NNP	O	Wikipedia	prep_like	8	24
-11	by	IN	O	by	_	0	-1
-12	automatically	RB	O	automatically	advmod	13	-1
-13	recommending	VBG	O	recommend	prepc_by	6	-1
-14	edits	NNS	O	edit	dobj	13	25
-15	based	VBN	O	base	_	0	-1
-16	on	IN	O	on	prepc_based_on	13	-1
-17	incoming	JJ	MISC	incoming	amod	19	26
-18	content	JJ	O	content	amod	19	26
-19	streams	NNS	O	stream	pobj	13	26
-20	.	.	O	.	_	0	-1
+1	KBA	233:236	NNP	O	KBA	nsubj	2	12
+2	seeks	237:242	VBZ	O	seek	_	0	-1
+3	to	243:245	TO	O	to	aux	4	-1
+4	help	246:250	VB	O	help	xcomp	2	-1
+5	humans	251:257	NNS	O	human	nsubj	6	21
+6	expand	258:264	VB	O	expand	ccomp	4	-1
+7	knowledge	265:274	NN	O	knowledge	nn	8	22
+8	bases	275:280	NNS	O	basis	dobj	6	22
+9	like	281:285	IN	O	like	_	0	22
+10	Wikipedia	286:295	NNP	ORGANIZATION	Wikipedia	prep_like	8	22
+11	by	296:298	IN	O	by	_	0	-1
+12	automatically	299:312	RB	O	automatically	advmod	13	-1
+13	recommending	313:325	VBG	O	recommend	prepc_by	6	-1
+14	edits	326:331	NNS	O	edit	dobj	13	24
+15	based	332:337	VBN	O	base	_	0	-1
+16	on	338:340	IN	O	on	prepc_based_on	13	-1
+17	incoming	341:349	JJ	O	incoming	amod	19	25
+18	content	350:357	NN	O	content	nn	19	25
+19	streams	358:365	NNS	O	stream	pobj	13	25
+20	.	365:366	.	O	.	_	0	-1
 </SENT>
 <SENT id="testdocument_SENT_6">
-1	This	DT	O	this	det	3	27
-2	open	JJ	O	open	amod	3	27
-3	evaluation	NN	O	evaluation	nsubj	4	27
-4	measures	VBZ	O	measure	_	0	-1
-5	an	DT	O	a	det	7	28
-6	automatic	JJ	O	automatic	amod	7	28
-7	system	NN	O	system	poss	9	28
-8	's	POS	O	's	_	0	28
-9	ability	NN	O	ability	dobj	4	28
-10	to	TO	O	to	_	0	-1
-11	filter	NN	O	filter	prep_to	4	-1
-12	a	DT	O	a	det	14	31
-13	large	JJ	O	large	amod	14	31
-14	stream	NN	O	stream	tmod	4	31
-15	of	IN	O	of	_	0	31
-16	text	NN	O	text	prep_of	14	31
-17	for	IN	O	for	_	0	-1
-18	new	JJ	O	new	amod	19	-1
-19	knowledge	NN	O	knowledge	prep_for	4	-1
-20	about	IN	O	about	_	0	-1
-21	entities	NNS	O	entity	prep_about	19	36
-22	.	.	O	.	_	0	-1
+1	This	367:371	DT	O	this	det	3	26
+2	open	372:376	JJ	O	open	amod	3	26
+3	evaluation	377:387	NN	O	evaluation	nsubj	4	26
+4	measures	388:396	VBZ	O	measure	_	0	-1
+5	an	397:399	DT	O	a	det	7	28
+6	automatic	400:409	JJ	O	automatic	amod	7	28
+7	system	410:416	NN	O	system	poss	9	28
+8	's	416:418	POS	O	's	_	0	28
+9	ability	419:426	NN	O	ability	dobj	4	27
+10	to	427:429	TO	O	to	_	0	-1
+11	filter	430:436	NN	O	filter	prep_to	4	-1
+12	a	437:438	DT	O	a	det	14	30
+13	large	439:444	JJ	O	large	amod	14	30
+14	stream	445:451	NN	O	stream	tmod	4	30
+15	of	452:454	IN	O	of	_	0	30
+16	text	455:459	NN	O	text	prep_of	14	30
+17	for	460:463	IN	O	for	_	0	-1
+18	new	464:467	JJ	O	new	amod	19	-1
+19	knowledge	468:477	NN	O	knowledge	prep_for	4	-1
+20	about	478:483	IN	O	about	_	0	-1
+21	entities	484:492	NNS	O	entity	prep_about	19	35
+22	.	492:493	.	O	.	_	0	-1
 </SENT>
+</FILENAME>
+<FILENAME id="secondtestdoc">
+<SENT id="secondtestdoc_SENT_1">
+1	KBA	12:15	NN	O	kba	nn	2	1
+2	systems	16:23	NNS	O	system	nsubj	4	1
+3	must	24:28	MD	O	must	aux	4	-1
+4	disambiguate	29:41	VB	O	disambiguate	_	0	-1
+5	entity	42:48	NN	O	entity	dobj	4	3
+6	mentions	49:57	VBZ	O	mention	dep	5	3
+7	and	58:61	CC	O	and	_	0	2
+8	then	62:66	RB	O	then	advmod	9	5
+9	select	67:73	JJ	O	select	conj_and	5	5
+10	mentioning	74:84	VBG	O	mention	partmod	9	5
+11	documents	85:94	NNS	O	document	dobj	10	7
+12	that	95:99	IN	O	that	nsubj	13	7
+13	satisfy	100:107	VBP	O	satisfy	rcmod	11	7
+14	a	108:109	DT	O	a	det	17	9
+15	particular	110:120	JJ	O	particular	amod	17	9
+16	info	121:125	NN	O	info	nn	17	9
+17	need	126:130	NN	O	need	dobj	13	9
+18	.	130:131	.	O	.	_	0	-1
+</SENT>
+<SENT id="secondtestdoc_SENT_2">
+1	KBA	132:135	NNP	O	KBA	nsubj	3	12
+2	2012	136:140	CD	DATE	2012	num	1	12
+3	focused	141:148	VBD	O	focus	_	0	-1
+4	on	149:151	IN	O	on	_	0	-1
+5	a	152:153	DT	O	a	det	8	13
+6	single	154:160	JJ	O	single	amod	8	13
+7	info	161:165	NN	O	info	nn	8	13
+8	need	166:170	NN	O	need	prep_on	3	13
+9	:	170:171	:	O	:	_	0	-1
+10	find	172:176	VB	O	find	ccomp	3	-1
+11	documents	177:186	NNS	O	document	nsubj	12	7
+12	worthy	187:193	JJ	O	worthy	xcomp	10	-1
+13	of	194:196	IN	O	of	_	0	-1
+14	citation	197:205	NN	O	citation	prep_of	12	15
+15	in	206:208	IN	O	in	_	0	15
+16	Wikipedia	209:218	NNP	ORGANIZATION	Wikipedia	prep_in	14	15
+17	without	219:226	IN	O	without	_	0	-1
+18	any	227:230	DT	O	any	det	19	-1
+19	requirement	231:242	NN	O	requirement	prep_without	12	-1
+20	for	243:246	IN	O	for	_	0	-1
+21	novelty	247:254	NN	O	novelty	prep_for	19	19
+22	and	255:258	CC	O	and	_	0	19
+23	salience	259:267	NN	O	salience	conj_and	21	19
+24	.	267:268	.	O	.	_	0	-1
+</SENT>
+<SENT id="secondtestdoc_SENT_3">
+1	KBA	269:272	NNP	O	KBA	nsubj	17	21
+2	2013	273:277	CD	DATE	2013	num	1	20
+3	will	278:282	MD	O	will	aux	4	-1
+4	add	283:286	VB	O	add	_	0	-1
+5	more	287:291	JJR	O	more	dobj	4	22
+6	targeted	292:300	VBN	O	target	partmod	5	22
+7	info	301:305	NN	O	info	nsubj	8	22
+8	needs	306:311	VBZ	O	need	ccomp	6	22
+9	that	312:316	IN	O	that	complm	10	22
+10	require	317:324	VBP	O	require	ccomp	8	22
+11	novelty	325:332	NN	O	novelty	dobj	10	22
+12	and	333:336	CC	O	and	_	0	22
+13	salience	337:345	NN	O	salience	conj_and	11	22
+14	,	345:346	,	O	,	_	0	-1
+15	and	347:350	CC	O	and	_	0	-1
+16	thus	351:355	RB	O	thus	advmod	4	-1
+17	improve	356:363	VB	O	improve	conj_and	4	-1
+18	the	364:367	DT	O	the	det	19	26
+19	evaluation	368:378	NN	O	evaluation	poss	24	26
+20	's	378:380	POS	O	's	_	0	26
+21	sensitivity	381:392	NN	O	sensitivity	nn	24	26
+22	,	392:393	,	O	,	_	0	26
+23	i.e.	394:398	FW	O	i.e.	appos	24	26
+24	ability	399:406	NN	O	ability	dobj	17	26
+25	to	407:409	TO	O	to	aux	26	-1
+26	differentiate	410:423	VB	O	differentiate	xcomp	17	-1
+27	systems	424:431	NNS	O	system	dobj	26	1
+28	.	431:432	.	O	.	_	0	-1
+</SENT>
+<SENT id="secondtestdoc_SENT_4">
+1	See	433:436	VB	O	see	_	0	-1
+2	KBA	437:440	NNP	O	KBA	dep	5	21
+3	2012	441:445	CD	DATE	2012	num	5	34
+4	Overview	446:454	NNP	MISC	Overview	nn	5	34
+5	slides	455:461	NNS	O	slide	dep	1	34
+6	and	462:465	CC	O	and	_	0	-1
+7	KBA	466:469	NNP	O	KBA	dep	10	21
+8	2013	470:474	CD	DATE	2013	num	10	36
+9	Preview	475:482	NNP	O	Preview	nn	10	36
+10	slides	483:489	NNS	O	slide	conj_and	5	36
+11	.	489:490	.	O	.	_	0	-1
+</SENT>
+<SENT id="secondtestdoc_SENT_5">
+1	The	491:494	DT	O	the	det	8	38
+2	hourly	495:501	JJ	SET	hourly	amod	8	37
+3	structured	502:512	JJ	O	structured	amod	8	38
+4	of	513:515	IN	O	of	_	0	38
+5	the	516:519	DT	O	the	det	6	38
+6	KBA	520:523	NN	O	kba	prep_of	3	38
+7	stream	524:530	NN	O	stream	nn	8	38
+8	corpus	531:537	NN	O	corpus	nsubj	9	38
+9	allows	538:544	VBZ	O	allow	_	0	-1
+10	entities	545:553	NNS	O	entity	nsubj	12	40
+11	to	554:556	TO	O	to	aux	12	-1
+12	evolve	557:563	VB	O	evolve	xcomp	9	-1
+13	.	563:564	.	O	.	_	0	-1
+</SENT>
+<SENT id="secondtestdoc_SENT_6">
+1	Unlike	565:571	IN	O	unlike	_	0	-1
+2	traditional	572:583	JJ	O	traditional	amod	4	44
+3	filter	584:590	NN	O	filter	nn	4	44
+4	topics	591:597	NNS	O	topic	prep_unlike	15	44
+5	defined	598:605	VBN	O	define	partmod	4	44
+6	by	606:608	IN	O	by	_	0	44
+7	a	609:610	DT	O	a	det	8	44
+8	list	611:615	NN	O	list	agent	5	44
+9	of	616:618	IN	O	of	_	0	44
+10	keyword	619:626	NN	O	keyword	nn	11	48
+11	queries	627:634	NNS	O	query	prep_of	8	48
+12	,	634:635	,	O	,	_	0	-1
+13	entities	636:644	NNS	O	entity	nsubjpass	15	40
+14	are	645:648	VBP	O	be	auxpass	15	-1
+15	described	649:658	VBN	O	describe	_	0	-1
+16	by	659:661	IN	O	by	_	0	-1
+17	semi-structured	662:677	JJ	O	semi-structured	amod	18	50
+18	articles	678:686	NNS	O	article	agent	15	50
+19	in	687:689	IN	O	in	_	0	50
+20	a	690:691	DT	O	a	det	22	52
+21	knowledge	692:701	NN	O	knowledge	nn	22	52
+22	base	702:706	NN	O	base	prep_in	18	52
+23	-LRB-	707:708	-LRB-	O	-lrb-	_	0	52
+24	KB	708:710	NN	O	kb	abbrev	22	52
+25	-RRB-	710:711	-RRB-	O	-rrb-	_	0	52
+26	like	712:716	IN	O	like	_	0	-1
+27	Wikipedia	717:726	NNP	ORGANIZATION	Wikipedia	prep_like	15	11
+28	,	726:727	,	O	,	_	0	-1
+29	Facebook	728:736	NNP	ORGANIZATION	Facebook	nn	33	56
+30	,	736:737	,	O	,	_	0	56
+31	LinkedIn	738:746	NNP	ORGANIZATION	LinkedIn	appos	33	56
+32	,	746:747	,	O	,	_	0	56
+33	Crunchbase	748:758	NNP	O	Crunchbase	appos	27	56
+34	,	758:759	,	O	,	_	0	-1
+35	etc.	760:763	FW	O	etc.	dep	27	-1
+36	.	763:764	.	O	.	_	0	-1
+</SENT>
+<SENT id="secondtestdoc_SENT_7">
+1	Such	765:769	JJ	O	such	amod	3	58
+2	KB	770:772	NN	O	kb	nn	3	58
+3	articles	773:781	NNS	O	article	nsubj	9	58
+4	are	782:785	VBP	O	be	cop	6	-1
+5	more	786:790	RBR	O	more	advmod	6	-1
+6	human-centric	791:804	JJ	O	human-centric	_	0	-1
+7	and	805:808	CC	O	and	_	0	-1
+8	also	809:813	RB	O	also	advmod	9	-1
+9	provide	814:821	VBP	O	provide	conj_and	6	-1
+10	richer	822:828	JJR	O	richer	amod	11	59
+11	material	829:837	NN	O	material	dobj	9	59
+12	for	838:841	IN	O	for	_	0	59
+13	modeling	842:850	NN	O	modeling	prep_for	11	59
+14	.	850:851	.	O	.	_	0	-1
+</SENT>
+</FILENAME>
