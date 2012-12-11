@@ -188,12 +188,12 @@ public class runNER extends SimpleFunction {
 		
 		myDocument mydoc = new myDocument();	// object for a document object
 		
-		int sentid = 0;
+		//int sentid = 0;
 		for(CoreMap sentence: sentences) {	// for each sentence
 		    
 		    mySentence mysent = new mySentence();	// object for a sentence output
 		    
-		    sentid = sentid + 1;			// sentence id
+		    //sentid = sentid + 1;			// sentence id
 		    //os.write("<SENT id=\"" + docid + "_SENT_" + sentid + "\">\n");
 		    
 		    int wordid = 0;
@@ -249,11 +249,12 @@ public class runNER extends SimpleFunction {
 		}
 
 		os.write("<FILENAME id=\"" + docid + "\">\n");	// output <FILENAME ...>
-		sentid = 0;	// lets output!!
+		int sentid = 0;	// lets output!!
 		for(mySentence mysent : mydoc.sentences){	// for each sentence
 		    
+		    //os.write("<SENT id=\"" + docid + "_SENT_" + sentid + "\">\n");	// output <SENT>
+		    os.write("<SENT id=\"" + sentid + "\">\n");	// output <SENT>
 		    sentid = sentid + 1;
-		    os.write("<SENT id=\"" + docid + "_SENT_" + sentid + "\">\n");	// output <SENT>
 		    
 		    int wordid = 0;
 		    for(myWord myword : mysent.words){	// for each word, output a line
