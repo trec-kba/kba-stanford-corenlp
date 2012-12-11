@@ -77,9 +77,9 @@
     </target>
     -->	
 	
-    <!-- Ce Zhang:  how much of this build file can we simplify and make non-tuffy -->
-    <!-- To John: sorry for the confusion... This build file has nothing 
-               to do with Tuffy--it just uses the name tuffy.classpath for classpath... -->
+    <!-- This build file has nothing to do with the UWisc system
+         called Tuffy.  It just uses the name tuffy.classpath for
+         classpath... -->
 
 	<target name="ner"
         description="generate the distribution" >

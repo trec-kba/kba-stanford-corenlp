@@ -120,8 +120,8 @@ public class runNER extends SimpleFunction {
     
     private StanfordCoreNLP pipeline = null;
 
-    // Ce Zhang -- what does this function do?  Is it ever called?
-    // To John: No, it is not used in the currect pipeline. It was used in a project called Textrunner that tries to unify all condor jobs...
+    // This function is only used in Textrunner, which tries to unify
+    // all condor jobs.
     public void init() {
 	    Properties props = new Properties();
 	    props.put("annotators", "tokenize, cleanxml, ssplit, pos, lemma, ner");
@@ -172,7 +172,10 @@ public class runNER extends SimpleFunction {
 	    
 	return null;
     }
-	
+
+    /**
+     * main function called when running java -jar runNER.jar <input> <output>
+     */	
     static public void main(String[] args) throws IOException, TikaException{
 	if (!silent) System.err.println("Starting NER...");
 	Properties props = new Properties();
@@ -211,10 +214,8 @@ public class runNER extends SimpleFunction {
 	String line;
 	Pattern p = Pattern.compile("<FILENAME (.*?)>");
 
-	/** 
-	 * Ce Zhang, could you wrote a couple comments about the
-	 * logical flow of this loop?
-	 */
+	// read in the <FILENAME ...>TEXT</FILENAME> input and
+	// generate output with OWPL between SENT tags.
 	while((line = is.readLine()) != null){	// for each line
 	    Matcher m = p.matcher(line);	// is it a <FILENAME...> line
 	    if(m.find()){
@@ -228,6 +229,7 @@ public class runNER extends SimpleFunction {
 		content += line;		// append this line
 		// Ce Zhang, what is this replaceAll doing?
 		// To John: we want <AAA src=xxx style=yyy> to be <AAA>
+		// Ce Zhang:  are we expecting any incoming tags other than <FILENAME ...>?
 		content = content.replaceAll(" [^<>]*?>", ">");	
 		String docid = currentDocid;	// set doc-id
 		
@@ -296,8 +298,8 @@ public class runNER extends SimpleFunction {
 			
 		    }
 		}
-		
-		
+
+		os.write("<FILENAME id=\"" + docid + "\">\n");	// output <FILENAME ...>
 		sentid = 0;	// lets output!!
 		for(mySentence mysent : mydoc.sentences){	// for each sentence
 		    
@@ -317,16 +319,13 @@ public class runNER extends SimpleFunction {
 		    
 		    os.write("</SENT>\n");	// output </SENT>
 		}
+		os.write("</FILENAME>\n");
 		
 		content = "";	// clear "content" such that we can start a new document
 		continue;	// continue, so that we will not get line324 (content += "\n" + line;).
 	    }
 	    content += "\n" + line;	// otherwise, append line to content
 
-	    // Ce Zhang, where should <FILENAME...></FILENAME> tags
-	    // get inserted in this loop, so they appear in the
-	    // output?
-	    // To John: you want that in the output? If you want, before line-302 and after line-319.
 	}
 	os.close();
     }
