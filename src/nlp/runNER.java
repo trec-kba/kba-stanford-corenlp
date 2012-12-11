@@ -212,7 +212,7 @@ public class runNER extends SimpleFunction {
 	String content = "";
 	String currentDocid = null;
 	String line;
-	Pattern p = Pattern.compile("<FILENAME (.*?)>");
+	Pattern p = Pattern.compile("<FILENAME docid=\"(.*?)\">");
 
 	// read in the <FILENAME ...>TEXT</FILENAME> input and
 	// generate output with OWPL between SENT tags.
