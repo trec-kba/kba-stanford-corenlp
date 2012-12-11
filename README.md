@@ -35,21 +35,26 @@ This will produce a .jar file called runNER.jar.
 
 The file src/nlp/runNER.java takes as input a corpus in format
 
-    <FILENAME DOCUMENTID>
+    <FILENAME id="DOCUMENTID">
     content...
     </FILENAME>
     ...
-    <FILENAME DOCUMENTID>
+    <FILENAME id="DOCUMENTID">
     content...
     </FILENAME>
 
 and output the one-token-per-line TSV format as
 
     <FILENAME id="DOCUMENTID">
-    <SENT id="SENT-NUM-IN-DOC">
-    TOKEN-NUM-IN-SENTENCE    TOKEN    BEGIN_OFFSET:END_OFFSET    POS    NER    LEMMA    DEP-PATH-TO-PARENT    PARENT-ID    COREF-CLUSTER-ID
+    <SENT id="SENT-NUM">
+    TOK-NUM    TOKEN    BEGIN:END_OFFSET    POS    NER    LEMMA    DEP-PATH-TO-PARENT    PARENT-ID    COREF-CLUSTER-ID
     ...
     </SENT>
     </FILENAME>
+
+SENT-NUM is zero-based index to sentence within the document.  TOK-NUM
+is zero-based index to token within the sentence.  
+
+BEGIN_OFFSET and END_OFFSET count number of bytes not characters.... or not?!
 
 You can see the input.txt and ner-output.txt examples in the test/ folder.
