@@ -45,9 +45,11 @@ The file src/nlp/runNER.java takes as input a corpus in format
 
 and output the one-token-per-line TSV format as
 
-    <SENT id="SENTID">
-    WORDID    WORD    BEGIN_OFFSET:END_OFFSET    POS    NER    LEMMA    DEP-PATH-TO-PARENT    PARENT-ID    COREF-CLUSTER-ID
-    ..
+    <FILENAME id="DOCUMENTID">
+    <SENT id="SENT-NUM-IN-DOC">
+    TOKEN-NUM-IN-SENTENCE    TOKEN    BEGIN_OFFSET:END_OFFSET    POS    NER    LEMMA    DEP-PATH-TO-PARENT    PARENT-ID    COREF-CLUSTER-ID
+    ...
     </SENT>
+    </FILENAME>
 
 You can see the input.txt and ner-output.txt examples in the test/ folder.
