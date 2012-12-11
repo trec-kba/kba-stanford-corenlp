@@ -128,6 +128,8 @@ public class runNER extends SimpleFunction {
 	Properties props = new Properties();
 	props.put("annotators", "tokenize, cleanxml, ssplit, pos, lemma, ner, parse, dcoref");
 	
+	// cause Part of Speech tagger and Dependency Parser to split
+	// up sentences that are longer than 100 words.
     	props.setProperty("pos.maxlen", "100");
     	props.setProperty("parse.maxlen", "100");
     	
