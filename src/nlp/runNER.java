@@ -242,6 +242,14 @@ public class runNER extends SimpleFunction {
 		    for(CorefMention cm : chain.getMentionsInTextualOrder()){	// for each mention in the cluster
 			//System.out.println("Coref" + clusterID + ":  SENT-" + cm.sentNum + " " + "WORD-" + cm.startIndex + " ~ WORD-" + cm.endIndex + " " + cm.mentionSpan); 
 			for(int woffset =  cm.startIndex; woffset < cm.endIndex; woffset ++){	// for each word in the mention
+			    // sentence numbering inside CorefMention
+			    // and other CoreNLP parts is one-based,
+			    // word offset indexing is also one-based.
+			    // Since arrays in Java and many
+			    // programming languages are zero-based,
+			    // we must subtract one here and we also
+			    // generate zero-based indexing in the
+			    // output.
 			    mydoc.sentences.get(cm.sentNum-1).words.get(woffset-1).corefID = clusterID;		// update the word's cluster ID
 			}
 			
@@ -254,17 +262,19 @@ public class runNER extends SimpleFunction {
 		    
 		    //os.write("<SENT id=\"" + docid + "_SENT_" + sentid + "\">\n");	// output <SENT>
 		    os.write("<SENT id=\"" + sentid + "\">\n");	// output <SENT>
+		    // this causes zero-based sentence indexing in our output
 		    sentid = sentid + 1;
 		    
 		    int wordid = 0;
 		    for(myWord myword : mysent.words){	// for each word, output a line
-			wordid = wordid + 1;
 			os.write(wordid + "\t" + myword.word + 
 				 "\t" + myword.offset1 + ":" + myword.offset2 + 
 				 "\t" + myword.pos + 
 				 "\t" + myword.ne + "\t" + myword.lemma + 
 				 "\t" + myword.dep_class + "\t" + myword.dep_partent +
 				 "\t" + myword.corefID + "\n");
+			// use zero-based word indexing
+			wordid = wordid + 1;
 		    }
 		    
 		    os.write("</SENT>\n");	// output </SENT>
