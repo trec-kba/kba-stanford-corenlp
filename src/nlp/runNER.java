@@ -120,59 +120,6 @@ public class runNER extends SimpleFunction {
     
     private StanfordCoreNLP pipeline = null;
 
-    // This function is only used in Textrunner, which tries to unify
-    // all condor jobs.
-    public void init() {
-	    Properties props = new Properties();
-	    props.put("annotators", "tokenize, cleanxml, ssplit, pos, lemma, ner");
-	    pipeline = new StanfordCoreNLP(props);
-    }
-    
-    public List<String> process(String doc){
-    	Matcher m = patternDocHead.matcher(doc);
-    	String docid = "NA";
-    	if(m.find()){
-    		docid = m.group(1);
-    	}
-	doc = doc.replaceAll(" [^<>]*?>", ">");
-        Annotation document = new Annotation(doc);
-        pipeline.annotate(document);
-	List<CoreMap> sentences = document.get(SentencesAnnotation.class);
-	ArrayList<String> parsedSentences = new ArrayList<String>();
-	
-	myDocument mydoc = new myDocument();
-	    
-	int sentid = 0;
-	for(CoreMap sentence: sentences) {
-	    	
-	    mySentence mysent = new mySentence();
-	    	
-	    sentid = sentid + 1;
-	    StringBuffer sb = new StringBuffer();
-	    sb.append("<SENT docid=\"" + docid + "\" sentid=\"" + sentid + "\">\n");
-	    	
-	    int wordid = 0;
-	    for (CoreLabel token: sentence.get(TokensAnnotation.class)) {
-		++wordid;
-		String word = token.get(TextAnnotation.class);
-		String pos = token.get(PartOfSpeechAnnotation.class);
-		String lemma = token.get(LemmaAnnotation.class);  
-		String ne = token.get(NamedEntityTagAnnotation.class);   
-		sb.append(wordid + "\t" + word + "\t" + pos + "\t" + ne + "\t" + lemma + "\n");
-	    		
-		mysent.pushWord(new myWord(word, pos, lemma, ne, -1));
-	    		
-	    }
-	    	
-	    mydoc.pushSentence(mysent);
-	    	
-	    sb.append("</SENT>");
-	    parsedSentences.add(sb.toString());
-	}
-	    
-	return null;
-    }
-
     /**
      * main function called when running java -jar runNER.jar <input> <output>
      */	
