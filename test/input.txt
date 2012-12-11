@@ -5,7 +5,11 @@ This KBA is good!
 
 KBA 2013 is gearing up with more tasks and an even richer stream corpus.
 
+知識基礎加速
+
 Join the TREC KBA discussion forum for updates.
+
+قاعدة المعرفة تسريع
 
 KBA seeks to help humans expand knowledge bases like Wikipedia by automatically recommending edits based on incoming content streams. This open evaluation measures an automatic system's ability to filter a large stream of text for new knowledge about entities.
 
