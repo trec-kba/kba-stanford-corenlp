@@ -132,6 +132,7 @@ public class runNER extends SimpleFunction {
 	// up sentences that are longer than 100 words.
     	props.setProperty("pos.maxlen", "100");
     	props.setProperty("parse.maxlen", "100");
+	//props.setProperty("dcoref.maxdist", "1");
     	
 	StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
 	

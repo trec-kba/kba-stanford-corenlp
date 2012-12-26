@@ -15,6 +15,7 @@ import StreamCorpus
 
 import os
 import re
+import time
 import hashlib
 import argparse
 import traceback
@@ -48,6 +49,7 @@ for fname in os.listdir(args.input_dir):
     ## runNER as a child process to get OWPL output
     tmp_ner_path = os.path.join('/tmp', fname + '.ner')
     runNERpath = os.path.join(args.runNER, 'runNER.jar')
+    start_time = time.time()
     try:
         gpg_child = subprocess.Popen(
             ['java', '-Xmx2048m', '-jar', runNERpath, tmp_cleansed_path, tmp_ner_path],
@@ -58,7 +60,8 @@ for fname in os.listdir(args.input_dir):
         print traceback.format_exc(exc)
         print 'failed to create %s' % tmp_ner_path
         continue
-    print 'created %s' % tmp_ner_path
+    elapsed = time.time() - start_time
+    print 'created %s in %.1f sec' % (tmp_ner_path, elapsed)
 
     all_ner = open(tmp_ner_path)
     o_chunk = StreamCorpus.Chunk()
@@ -74,6 +77,12 @@ for fname in os.listdir(args.input_dir):
                 assert stream_id == stream_item.stream_id, \
                     '%s != %s' % (stream_id, stream_item.stream_id)
                 stream_item.body.ner = ner
+
+                ## make a label
+                label = StreamCorpus.Label()
+                label.target_id = stream_id
+                stream_item.body.labels = [label]
+
                 o_chunk.add(stream_item)
 
                 ## reset state machine for next doc
