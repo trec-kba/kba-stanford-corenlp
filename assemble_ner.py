@@ -1,6 +1,6 @@
 #!/usr/bin/python
 '''
-Takes a directory of StreamCorpus.Chunk files as input, puts the
+Takes a directory of streamcorpus.Chunk files as input, puts the
 body.cleansed portions into the XML format expected by the
 kba-stanford-corenlp wrapper, runs the wrapper, parses the output,
 puts it back into the Chunk, and writes the new version of the chunk.
@@ -10,8 +10,8 @@ step in temp files before doing an atomic move to put the final
 product into position.
 '''
 
-## assume that StreamCorpus has been installed
-import StreamCorpus
+## assume that streamcorpus has been installed
+import streamcorpus
 
 import os
 import re
@@ -22,8 +22,8 @@ import traceback
 import subprocess
 
 parser = argparse.ArgumentParser()
-parser.add_argument('input_dir', help='directory of StreamCorpus.Chunk files')
-parser.add_argument('output_dir', help='directory to put new StreamCorpus.Chunk files')
+parser.add_argument('input_dir', help='directory of streamcorpus.Chunk files')
+parser.add_argument('output_dir', help='directory to put new streamcorpus.Chunk files')
 ## could add options to delete input after verifying the output on disk?
 parser.add_argument('runNER', help='path to runNER.jar')
 args = parser.parse_args()
@@ -31,10 +31,14 @@ args = parser.parse_args()
 stream_id_re = re.compile('<FILENAME\s+id="(.*?)"')
 
 for fname in os.listdir(args.input_dir):
+    if not fname.endswith('.sc'):
+        ## ignore any non-streamcorpus files
+        continue
+
     fpath = os.path.join(args.input_dir, fname)
     
     ## just need one chunk for this tiny corpus
-    i_chunk = StreamCorpus.Chunk(file_obj=open(fpath))
+    i_chunk = streamcorpus.Chunk(file_obj=open(fpath))
 
     ## make a temp file for passing cleansed text through NER
     tmp_cleansed_path = os.path.join('/tmp', fname + '.cleansed')
@@ -64,7 +68,7 @@ for fname in os.listdir(args.input_dir):
     print 'created %s in %.1f sec' % (tmp_ner_path, elapsed)
 
     all_ner = open(tmp_ner_path)
-    o_chunk = StreamCorpus.Chunk()
+    o_chunk = streamcorpus.Chunk()
     input_iter = i_chunk.__iter__()
     ner = ''
     for line in all_ner.readlines():
@@ -79,7 +83,7 @@ for fname in os.listdir(args.input_dir):
                 stream_item.body.ner = ner
 
                 ## make a label
-                label = StreamCorpus.Label()
+                label = streamcorpus.Label()
                 label.target_id = stream_id
                 stream_item.body.labels = [label]
 
