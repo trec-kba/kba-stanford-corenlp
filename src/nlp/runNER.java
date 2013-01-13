@@ -59,23 +59,23 @@ class myWord{
 	public String pos;
 	public String lemma;
 	public String ne;
-        public int mention_id;
 	
 	public int offset1 = 0;
 	public int offset2 = 0;
 	
 	public int corefID;
+        public int mentionID;
 	
 	public int dep_partent = 0;
 	public String dep_class = "_";
 	
-    public myWord(String _word, String _pos, String _lemma, String _ne, int _mention_id, int _corefID){
+    public myWord(String _word, String _pos, String _lemma, String _ne, int _mentionID, int _corefID){
 		word = _word;
 		pos = _pos;
 		lemma = _lemma;
 		ne = _ne;
-		mention_id = _mention_id;
 		
+		mentionID = _mentionID;
 		corefID = _corefID;
 	}
 	
@@ -192,13 +192,6 @@ public class runNER extends SimpleFunction {
 		myDocument mydoc = new myDocument();	// object for a document object
 		
 		//int sentid = 0;
-
-		// mention_id is a unique integer identifier within
-		// each sentence for the sets of tokens that get
-		// annotated as entities.  This enables distinguishing
-		// multi-token mentions that might be of the same
-		// entity type and in the same coref chain.
-		int mention_id = 0;
 		for(CoreMap sentence: sentences) {	// for each sentence
 		    
 		    mySentence mysent = new mySentence();	// object for a sentence output
@@ -209,19 +202,14 @@ public class runNER extends SimpleFunction {
 		    int wordid = 0;
 		    for (CoreLabel token: sentence.get(TokensAnnotation.class)) {	// for each word
 			++wordid;				// word id
-
-			
-			// what should we access in token in order to
-			// figure out the mention_id?
-
-
 			String word = token.get(TextAnnotation.class);
 			String pos = token.get(PartOfSpeechAnnotation.class);
 			String lemma = token.get(LemmaAnnotation.class);  
 			String ne = token.get(NamedEntityTagAnnotation.class);	// get annotation   
 			//os.write(wordid + "\t" + word + "\t" + pos + "\t" + ne + "\t" + lemma + "\n");
 
-			myWord myword = new myWord(word, pos, lemma, ne, mention_id, -1);	// object for a word output
+			// initialize default value of -1 for mentionID and corefID
+			myWord myword = new myWord(word, pos, lemma, ne, -1, -1);	// object for a word output
 
 			myword.offset1 = token.beginPosition();	// set start offset
 			myword.offset2 = token.endPosition();	// set end offset
@@ -252,7 +240,7 @@ public class runNER extends SimpleFunction {
 		}
 		
 		Map<Integer, CorefChain> graph = document.get(CorefChainAnnotation.class);	// get co-reference result
-		
+		int mentionID = 0;
 		for(Integer clusterID : graph.keySet()){	// for each cluster
 		    CorefChain chain = graph.get(clusterID);	
 		    
@@ -268,8 +256,15 @@ public class runNER extends SimpleFunction {
 			    // generate zero-based indexing in the
 			    // output.
 			    mydoc.sentences.get(cm.sentNum-1).words.get(woffset-1).corefID = clusterID;		// update the word's cluster ID
+
+			    // mentionID is a unique identifier for
+			    // multi-token mentions that might be in
+			    // the same coref chain
+			    mydoc.sentences.get(cm.sentNum-1).words.get(woffset-1).mentionID = mentionID;	// update the word's mention ID
 			}
-			
+			// Only increment mentionID for each
+			// CorefMention object
+			mentionID = mentionID + 1;
 		    }
 		}
 
@@ -289,7 +284,8 @@ public class runNER extends SimpleFunction {
 				 "\t" + myword.pos + 
 				 "\t" + myword.ne + "\t" + myword.lemma + 
 				 "\t" + myword.dep_class + "\t" + myword.dep_partent +
-				 "\t" + myword.corefID + "\n");
+				 "\t" + myword.corefID +
+				 "\t" + myword.mentionID + "\n");
 			// use zero-based word indexing
 			wordid = wordid + 1;
 		    }
