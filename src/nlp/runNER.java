@@ -59,6 +59,7 @@ class myWord{
 	public String pos;
 	public String lemma;
 	public String ne;
+        public int mention_id;
 	
 	public int offset1 = 0;
 	public int offset2 = 0;
@@ -68,11 +69,12 @@ class myWord{
 	public int dep_partent = 0;
 	public String dep_class = "_";
 	
-	public myWord(String _word, String _pos, String _lemma, String _ne, int _corefID){
+    public myWord(String _word, String _pos, String _lemma, String _ne, int _mention_id, int _corefID){
 		word = _word;
 		pos = _pos;
 		lemma = _lemma;
 		ne = _ne;
+		mention_id = _mention_id;
 		
 		corefID = _corefID;
 	}
@@ -190,6 +192,13 @@ public class runNER extends SimpleFunction {
 		myDocument mydoc = new myDocument();	// object for a document object
 		
 		//int sentid = 0;
+
+		// mention_id is a unique integer identifier within
+		// each sentence for the sets of tokens that get
+		// annotated as entities.  This enables distinguishing
+		// multi-token mentions that might be of the same
+		// entity type and in the same coref chain.
+		int mention_id = 0;
 		for(CoreMap sentence: sentences) {	// for each sentence
 		    
 		    mySentence mysent = new mySentence();	// object for a sentence output
@@ -200,13 +209,20 @@ public class runNER extends SimpleFunction {
 		    int wordid = 0;
 		    for (CoreLabel token: sentence.get(TokensAnnotation.class)) {	// for each word
 			++wordid;				// word id
+
+			
+			// what should we access in token in order to
+			// figure out the mention_id?
+
+
 			String word = token.get(TextAnnotation.class);
 			String pos = token.get(PartOfSpeechAnnotation.class);
 			String lemma = token.get(LemmaAnnotation.class);  
 			String ne = token.get(NamedEntityTagAnnotation.class);	// get annotation   
 			//os.write(wordid + "\t" + word + "\t" + pos + "\t" + ne + "\t" + lemma + "\n");
-			
-			myWord myword = new myWord(word, pos, lemma, ne, -1);	// object for a word output
+
+			myWord myword = new myWord(word, pos, lemma, ne, mention_id, -1);	// object for a word output
+
 			myword.offset1 = token.beginPosition();	// set start offset
 			myword.offset2 = token.endPosition();	// set end offset
 			
