@@ -134,6 +134,13 @@ public class runNER extends SimpleFunction {
 	// up sentences that are longer than 100 words.
     	props.setProperty("pos.maxlen", "100");
     	props.setProperty("parse.maxlen", "100");
+
+	// None of these worked for stopping PTB escaping...
+    	//props.setProperty("ptb3Escaping", "false");
+    	//props.setProperty("tokenize.ptb3Escaping", "false");
+    	//props.setProperty("tokenize", "ptb3Escaping=false");
+
+	// This appeared to have no effect on speeding up dcoref
 	//props.setProperty("dcoref.maxdist", "1");
     	
 	StanfordCoreNLP pipeline = new StanfordCoreNLP(props);
