@@ -134,11 +134,8 @@ public class runNER extends SimpleFunction {
 	// up sentences that are longer than 100 words.
     	props.setProperty("pos.maxlen", "100");
     	props.setProperty("parse.maxlen", "100");
-
-	// None of these worked for stopping PTB escaping...
-    	//props.setProperty("ptb3Escaping", "false");
-    	//props.setProperty("tokenize.ptb3Escaping", "false");
-    	//props.setProperty("tokenize", "ptb3Escaping=false");
+    	props.setProperty("tokenize.options", "ptb3Escaping=false");
+	// this appears to get ignored? ,normalizeAmpersandEntity=false");
 
 	// This appeared to have no effect on speeding up dcoref
 	//props.setProperty("dcoref.maxdist", "1");
@@ -169,9 +166,11 @@ public class runNER extends SimpleFunction {
 	}
 	
 	String content = "";
-	String currentDocid = null;
+	String currentStream_Id = null;
 	String line;
-	Pattern p = Pattern.compile("<FILENAME docid=\"(.*?)\">");
+	Pattern p = Pattern.compile("<FILENAME stream_id=\"(.*?)\">");
+
+	os.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?><root>");
 
 	// read in the <FILENAME ...>TEXT</FILENAME> input and
 	// generate output with OWPL between SENT tags.
@@ -180,7 +179,7 @@ public class runNER extends SimpleFunction {
 	    if(m.find()){
 		if (!silent) System.err.println(line);
 		content += "\n" + line;		// append this line to content
-		currentDocid = m.group(1);	// parse docid
+		currentStream_Id = m.group(1);	// parse stream_id
 		continue;
 	    }
 	    
@@ -190,7 +189,7 @@ public class runNER extends SimpleFunction {
 		// To John: we want <AAA src=xxx style=yyy> to be <AAA>
 		// Ce Zhang:  are we expecting any incoming tags other than <FILENAME ...>?
 		content = content.replaceAll(" [^<>]*?>", ">");	
-		String docid = currentDocid;	// set doc-id
+		String stream_id = currentStream_Id;	// set doc-id
 		
 		Annotation document = new Annotation(content);	
 		pipeline.annotate(document);	// run Stanford CoreNLP
@@ -204,7 +203,7 @@ public class runNER extends SimpleFunction {
 		    mySentence mysent = new mySentence();	// object for a sentence output
 		    
 		    //sentid = sentid + 1;			// sentence id
-		    //os.write("<SENT id=\"" + docid + "_SENT_" + sentid + "\">\n");
+		    //os.write("<SENT id=\"" + stream_id + "_SENT_" + sentid + "\">\n");
 		    
 		    int wordid = 0;
 		    for (CoreLabel token: sentence.get(TokensAnnotation.class)) {	// for each word
@@ -275,24 +274,33 @@ public class runNER extends SimpleFunction {
 		    }
 		}
 
-		os.write("<FILENAME id=\"" + docid + "\">\n");	// output <FILENAME ...>
+		os.write("<FILENAME stream_id=\"" + stream_id + "\">\n");	// output <FILENAME ...>
 		int sentid = 0;	// lets output!!
 		for(mySentence mysent : mydoc.sentences){	// for each sentence
 		    
-		    //os.write("<SENT id=\"" + docid + "_SENT_" + sentid + "\">\n");	// output <SENT>
+		    //os.write("<SENT id=\"" + stream_id + "_SENT_" + sentid + "\">\n");	// output <SENT>
 		    os.write("<SENT id=\"" + sentid + "\">\n");	// output <SENT>
 		    // this causes zero-based sentence indexing in our output
 		    sentid = sentid + 1;
 		    
 		    int wordid = 0;
 		    for(myWord myword : mysent.words){	// for each word, output a line
-			os.write(wordid + "\t" + myword.word + 
+			String output_line = wordid + "\t" + myword.word + 
 				 "\t" + myword.offset1 + ":" + myword.offset2 + 
 				 "\t" + myword.pos + 
 				 "\t" + myword.ne + "\t" + myword.lemma + 
 				 "\t" + myword.dep_class + "\t" + myword.dep_partent +
 				 "\t" + myword.corefID +
-				 "\t" + myword.mentionID + "\n");
+				 "\t" + myword.mentionID + "\n";
+			// make sure we have valid XML... this assumes
+			// that Stanford CoreNLP continues to force
+			// convert &amp; to just "&", so we can
+			// convert it back like this without getting
+			// &amp;amp;
+			output_line = output_line.replace("&", "&amp;");
+			output_line = output_line.replace(">", "&gt;");
+			output_line = output_line.replace("<", "&lt;");
+			os.write(output_line);
 			// use zero-based word indexing
 			wordid = wordid + 1;
 		    }
@@ -307,6 +315,7 @@ public class runNER extends SimpleFunction {
 	    content += "\n" + line;	// otherwise, append line to content
 
 	}
+	os.write("</root>");
 	os.close();
     }
 }
