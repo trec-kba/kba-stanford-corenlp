@@ -188,7 +188,7 @@ public class runNER extends SimpleFunction {
 		// Ce Zhang, what is this replaceAll doing?
 		// To John: we want <AAA src=xxx style=yyy> to be <AAA>
 		// Ce Zhang:  are we expecting any incoming tags other than <FILENAME ...>?
-		content = content.replaceAll(" [^<>]*?>", ">");	
+		//content = content.replaceAll(" [^<>]*?>", ">");	
 		String stream_id = currentStream_Id;	// set doc-id
 		
 		Annotation document = new Annotation(content);	
@@ -285,6 +285,19 @@ public class runNER extends SimpleFunction {
 		    
 		    int wordid = 0;
 		    for(myWord myword : mysent.words){	// for each word, output a line
+			// ensure that we make valid XML output by
+			// escaping these symbols, which should always
+			// appear as isolated tokens
+			if(myword.word.equals("&")) {
+			    myword.word  = "&amp;";
+			    myword.lemma = "&amp;";
+			} else if(myword.word.equals("<")) {
+			    myword.word  = "&lt;";
+			    myword.lemma = "&lt;";
+			} else if(myword.word.equals(">")) {
+			    myword.word  = "&gt;";
+			    myword.lemma = "&gt;";
+			}
 			String output_line = wordid + "\t" + myword.word + 
 				 "\t" + myword.offset1 + ":" + myword.offset2 + 
 				 "\t" + myword.pos + 
@@ -297,9 +310,9 @@ public class runNER extends SimpleFunction {
 			// convert &amp; to just "&", so we can
 			// convert it back like this without getting
 			// &amp;amp;
-			output_line = output_line.replace("&", "&amp;");
-			output_line = output_line.replace(">", "&gt;");
-			output_line = output_line.replace("<", "&lt;");
+			//output_line = output_line.replace("&", "&amp;");
+			//output_line = output_line.replace(">", "&gt;");
+			//output_line = output_line.replace("<", "&lt;");
 			os.write(output_line);
 			// use zero-based word indexing
 			wordid = wordid + 1;
